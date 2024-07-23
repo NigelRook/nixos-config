@@ -28,6 +28,10 @@
   home.packages = with pkgs; [
   ];
 
+  dconf = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
     userName = "Nigel Rook";

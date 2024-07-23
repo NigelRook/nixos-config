@@ -110,6 +110,7 @@
       settings = {
         "apz.fling_friction" = 0.005;
         "apz.fling_min_velocity_threshold" = 1.5;
+        "signon.rememberSignons" = false;
       };
     };
   };

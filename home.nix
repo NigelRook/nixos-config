@@ -38,6 +38,7 @@
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       "org/gnome/shell".favorite-apps = [
         "firefox.desktop"
+        "code.desktop"
         "org.gnome.Console.desktop"
         "org.gnome.Nautilus.desktop"
       ];
@@ -112,6 +113,17 @@
         "apz.fling_min_velocity_threshold" = 1.5;
         "signon.rememberSignons" = false;
       };
+    };
+  };
+
+  programs.vscode = {
+    enable = true;
+    extensions = [
+      pkgs.vscode-extensions.bbenoist.nix
+      pkgs.vscode-extensions.editorconfig.editorconfig
+    ];
+    userSettings = {
+      "files.autosave" = "onFocusChange";
     };
   };
 

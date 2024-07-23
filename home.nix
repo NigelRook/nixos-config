@@ -39,6 +39,19 @@
     };
   };
 
+  editorconfig = {
+    enable = true;
+    settings = {
+      "*" = {
+        trim_trailing_whitespace = true;
+        insert_final_newline = true;
+        max_line_width = 120;
+        indent_style = "space";
+        indent_size = 2;
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
     userName = "Nigel Rook";
@@ -59,6 +72,17 @@
     '';
     sessionVariables = {
       EDITOR = "vim";
+    };
+  };
+
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+    settings = {
+      mouse = "a";
+      expandtab = true;
+      tabstop = 2;
+      shiftwidth = 2;
     };
   };
 

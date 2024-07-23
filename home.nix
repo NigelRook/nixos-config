@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
   home.username = "nigel";
@@ -30,6 +30,13 @@
 
   dconf = {
     enable = true;
+    settings = {
+      "org/gnome/Console" = {
+        font-scale = lib.mkDefault 1.1;
+        audible-bell = false;
+      };
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    };
   };
 
   programs.git = {

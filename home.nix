@@ -36,6 +36,11 @@
         audible-bell = false;
       };
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/gnome/shell".favorite-apps = [
+        "firefox.desktop"
+        "org.gnome.Console.desktop"
+        "org.gnome.Nautilus.desktop"
+      ];
     };
   };
 

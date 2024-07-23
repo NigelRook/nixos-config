@@ -13,13 +13,16 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = github:nix-community/NUR;
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations.helmut = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
+        { nixpkgs.overlays = [ nur.overlay ]; }
+
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./configuration.nix

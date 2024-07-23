@@ -99,7 +99,10 @@
       ];
     };
     profiles.default = {
-      search.default = "DuckDuckGo";
+      search = {
+        default = "DuckDuckGo";
+        force = true;
+      };
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
         ublock-origin

@@ -125,6 +125,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Don't use gui to ask for SSH passwords
+  programs.ssh.enableAskPassword = false;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

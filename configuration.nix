@@ -91,7 +91,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     initialPassword = "changeme";
     packages = with pkgs; [
-    #  thunderbird
+      home-manager
     ];
   };
 

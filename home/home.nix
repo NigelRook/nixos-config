@@ -124,7 +124,9 @@
       pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
     ];
     userSettings = {
-      "files.autosave" = "onFocusChange";
+      "files.autoSave" = "onFocusChange";
+      "window.menuBarVisibility" = "compact";
+      "window.titleBarStyle" = "custom";
     };
   };
 

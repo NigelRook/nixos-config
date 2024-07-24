@@ -10,12 +10,21 @@ Configuration files for setting up NixOS
 
 ## Installing
 
-Copy nix config to /etc/nixos
+Generate default configuration.nix with
 
-Generate hardware-configuration.nix with
+`sudo nixos-generate-config --root /mnt`
 
-`sudo nixos-generate-config --show-hardware-config --root /mnt > /mnt/etc/nixos/hardware-configuration.nix`
+Copy contents of system to /etc/nixos
 
 Install with
 
-`sudo nixos-install --flake /mnt/etc/nixos#<host>`
+```
+cd /mnt
+sudo nixos-install --flake /mnt/etc/nixos#<host>
+```
+
+## After install
+
+Copy the contents of home to `~/.config/home-manager` then run
+
+`home-manager switch`

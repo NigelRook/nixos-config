@@ -16,24 +16,21 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/990e6d07-85ea-4951-a2d8-5e3f042a3359";
       fsType = "btrfs";
-      options = [ "subvol=root"  "noatime" "nodiratime" ];
+      options = [ "subvol=root" ];
     };
 
-  boot.initrd.luks.devices."nixos" =
-    { device = "/dev/disk/by-uuid/0dda8de3-6268-4c69-8732-88afac93f158";
-      allowDiscards = true;
-    };
+  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/0dda8de3-6268-4c69-8732-88afac93f158";
 
   fileSystems."/.snapshots" =
     { device = "/dev/disk/by-uuid/990e6d07-85ea-4951-a2d8-5e3f042a3359";
       fsType = "btrfs";
-      options = [ "subvol=snapshots" "noatime" "nodiratime" ];
+      options = [ "subvol=snapshots" ];
     };
 
   fileSystems."/.swapvol" =
     { device = "/dev/disk/by-uuid/990e6d07-85ea-4951-a2d8-5e3f042a3359";
       fsType = "btrfs";
-      options = [ "subvol=swap" "noatime" "nodiratime" ];
+      options = [ "subvol=swap" ];
     };
 
   fileSystems."/boot" =
@@ -45,26 +42,22 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/990e6d07-85ea-4951-a2d8-5e3f042a3359";
       fsType = "btrfs";
-      options = [ "subvol=home" "noatime" "nodiratime" ];
+      options = [ "subvol=home" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/990e6d07-85ea-4951-a2d8-5e3f042a3359";
       fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "nodiratime" ];
+      options = [ "subvol=nix" ];
     };
 
   fileSystems."/var/log" =
     { device = "/dev/disk/by-uuid/990e6d07-85ea-4951-a2d8-5e3f042a3359";
       fsType = "btrfs";
-      options = [ "subvol=log" "noatime" "nodiratime" ];
+      options = [ "subvol=log" ];
     };
 
-  swapDevices = [
-    { device = "/.swapvol/swapfile";
-      size = 16*1024;
-    }
-  ];
+  swapDevices = [];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

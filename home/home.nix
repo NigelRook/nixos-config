@@ -36,12 +36,23 @@
         audible-bell = false;
       };
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-      "org/gnome/shell".favorite-apps = [
-        "firefox.desktop"
-        "code.desktop"
-        "org.gnome.Console.desktop"
-        "org.gnome.Nautilus.desktop"
-      ];
+
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          pkgs.gnomeExtensions.hibernate-status-button.extensionUuid
+        ];
+        favorite-apps = [
+          "firefox.desktop"
+          "code.desktop"
+          "org.gnome.Console.desktop"
+          "org.gnome.Nautilus.desktop"
+        ];
+      };
+
+      "org/gnome/shell/extensions/hibernate-status-button" = {
+        show-hybrid-sleep = false;
+        show-suspend-then-hibernate = false;
+      };
     };
   };
 

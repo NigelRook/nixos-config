@@ -8,6 +8,12 @@
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
 
+  boot.resumeDevice = "/dev/mapper/nixos";
+  boot.kernelParams = [
+    # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
+    "resume_offset=2456778"
+  ];
+
   fileSystems."/.snapshots".options = [ "noatime" "nodiratime" ];
 
   fileSystems."/.swapvol".options = [ "noatime" "nodiratime" ];

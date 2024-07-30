@@ -49,6 +49,8 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  services.logind.lidSwitch = "suspend-then-hibernate";
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -115,6 +117,9 @@
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss
+
+    gnome.gnome-tweaks
+    gnomeExtensions.hibernate-status-button
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

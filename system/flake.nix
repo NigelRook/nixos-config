@@ -14,18 +14,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = github:nix-community/NUR;
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, lanzaboote, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations.helmut = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         { nixpkgs.overlays = [ nur.overlay ]; }
+        lanzaboote.nixosModules.lanzaboote
 
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./configuration.nix
+
+        ./secure-boot.nix
 
         # make home-manager as a module of nixos
         # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`

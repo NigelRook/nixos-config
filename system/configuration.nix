@@ -110,6 +110,8 @@
     wget
     jq
     ack
+    # for secure boot
+    sbctl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

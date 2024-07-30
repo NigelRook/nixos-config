@@ -19,6 +19,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.initrd.systemd.enable = true;
+
   networking.hostName = "helmut"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -110,8 +112,9 @@
     wget
     jq
     ack
-    # for secure boot
+    # for secure boot + tpm unlock
     sbctl
+    tpm2-tss
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

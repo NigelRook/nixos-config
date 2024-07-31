@@ -43,6 +43,7 @@
         ];
         favorite-apps = [
           "firefox.desktop"
+          "steam.desktop"
           "code.desktop"
           "org.gnome.Console.desktop"
           "org.gnome.Nautilus.desktop"

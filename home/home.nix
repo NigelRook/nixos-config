@@ -67,6 +67,10 @@
         indent_style = "space";
         indent_size = 2;
       };
+      "Makefile" = {
+        indent_style = "tab";
+        indent_size = 4;
+      };
     };
   };
 
@@ -139,6 +143,7 @@
       "files.autoSave" = "onFocusChange";
       "window.menuBarVisibility" = "compact";
       "window.titleBarStyle" = "custom";
+      "editor.renderWhitespace" = "all";
     };
   };
 

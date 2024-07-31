@@ -114,6 +114,7 @@
     wget
     jq
     ack
+    gnumake
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss

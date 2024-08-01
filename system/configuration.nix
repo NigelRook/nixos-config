@@ -21,6 +21,8 @@
 
   boot.initrd.systemd.enable = true;
 
+  hardware.enableAllFirmware = true;
+
   networking.hostName = "helmut"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

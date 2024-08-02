@@ -1,5 +1,3 @@
-{ lib, pkgs, modulesPath, ... }:
-
 {
   fileSystems."/".options = [ "noatime" "nodiratime" ];
 

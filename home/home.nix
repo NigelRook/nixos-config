@@ -54,6 +54,8 @@
         show-hybrid-sleep = false;
         show-suspend-then-hibernate = false;
       };
+
+      "org/gnome/desktop/screensaver".lock-delay = lib.hm.gvariant.mkUint32 1800;
     };
   };
 

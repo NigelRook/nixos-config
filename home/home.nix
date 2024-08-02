@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.username = "nigel";
@@ -25,8 +25,8 @@
   #   "Xft.dpi" = 172;
   # };
 
-  home.packages = with pkgs; [
-  ];
+  # home.packages = with pkgs; [
+  # ];
 
   dconf = {
     enable = true;

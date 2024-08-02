@@ -135,7 +135,7 @@
   programs.vscode = {
     enable = true;
     extensions = [
-      pkgs.vscode-extensions.bbenoist.nix
+      pkgs.vscode-extensions.jnoortheen.nix-ide
       pkgs.vscode-extensions.editorconfig.editorconfig
       pkgs.vscode-extensions.streetsidesoftware.code-spell-checker
     ];

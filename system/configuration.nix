@@ -123,6 +123,8 @@
 
     gnome.gnome-tweaks
     gnomeExtensions.hibernate-status-button
+
+    nixd
   ];
 
   programs.steam = {

@@ -1,5 +1,5 @@
 {
-  fileSystems."/".options = [ "noatime" "nodiratime" ];
+  imports = [ ../common/btrfs-attrs.nix ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
 
@@ -8,16 +8,6 @@
     # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
     "resume_offset=2456778"
   ];
-
-  fileSystems."/.snapshots".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/.swapvol".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/home".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/nix".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/var/log".options = [ "noatime" "nodiratime" ];
 
   swapDevices = [
     { device = "/.swapvol/swapfile";

@@ -30,6 +30,8 @@
         ./configuration.nix
 
         ./secure-boot.nix
+
+        ./config/gnome-desktop.nix
       ];
     });
   };

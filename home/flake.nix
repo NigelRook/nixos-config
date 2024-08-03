@@ -22,6 +22,7 @@
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
         modules = [
+          ./users/nigel.nix
           { nixpkgs.overlays = [ nur.overlay ]; }
           { nixpkgs.config.allowUnfree = true; }
           ./home.nix

@@ -1,9 +1,6 @@
 { pkgs, lib, ... }:
 
 {
-  home.username = "nigel";
-  home.homeDirectory = "/home/nigel";
-
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 

@@ -15,15 +15,22 @@
 
   outputs = { nixpkgs, lanzaboote, ... }@inputs: {
     # Please replace my-nixos with your hostname
-    nixosConfigurations.helmut = nixpkgs.lib.nixosSystem {
+    nixosConfigurations = nixpkgs.lib.genAttrs [
+      "helmut"
+    ] (hostName: nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         lanzaboote.nixosModules.lanzaboote
+
+        ./hardware/${hostName}/hardware-configuration.nix
+        ./hardware/${hostName}/hardware-extensions.nix
+
+        { networking.hostName = hostName; }
 
         ./configuration.nix
 
         ./secure-boot.nix
       ];
-    };
+    });
   };
 }

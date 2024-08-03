@@ -7,6 +7,9 @@
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,6 +29,25 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
   # Set your time zone.
   time.timeZone = "Europe/London";
 
@@ -44,24 +66,8 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  services.logind.lidSwitch = "suspend-then-hibernate";
-
   # Configure console keymap
   console.keyMap = "uk";
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nigel = {
-    isNormalUser = true;
-    description = "Nigel Rook";
-    extraGroups = [ "networkmanager" "wheel" ];
-    initialPassword = "changeme";
-    packages = with pkgs; [
-      home-manager
-    ];
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -81,27 +87,21 @@
     nixd
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Don't use gui to ask for SSH passwords
   programs.ssh.enableAskPassword = false;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.nigel = {
+    isNormalUser = true;
+    description = "Nigel Rook";
+    extraGroups = [ "networkmanager" "wheel" ];
+    initialPassword = "changeme";
+    packages = with pkgs; [
+      home-manager
+    ];
+  };
+
+  services.logind.lidSwitch = "suspend-then-hibernate";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

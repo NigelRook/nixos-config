@@ -25,7 +25,10 @@
           ./users/nigel.nix
           { nixpkgs.overlays = [ nur.overlay ]; }
           { nixpkgs.config.allowUnfree = true; }
-          ./home.nix
+          ./config/common.nix
+          ./config/gnome-desktop.nix
+          ./config/firefox.nix
+          ./config/dev.nix
         ];
 
         # Optionally use extraSpecialArgs

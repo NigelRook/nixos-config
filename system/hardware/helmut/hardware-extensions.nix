@@ -1,13 +1,13 @@
 {
-  imports = [ ../common/btrfs-attrs.nix ];
+  imports = [
+    ../common/btrfs-attrs.nix
+    ../../modules/btrfs-hibernate
+  ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
 
   boot.resumeDevice = "/dev/mapper/nixos";
-  boot.kernelParams = [
-    # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
-    "resume_offset=2456778"
-  ];
+  btrfs-hibernate.swapFileOffset = 2456778;
 
   swapDevices = [
     { device = "/.swapvol/swapfile";

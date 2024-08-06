@@ -82,11 +82,6 @@
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss
-
-    gnomeExtensions.hibernate-status-button
-    gnomeExtensions.appindicator
-
-    nixd
   ];
 
   # Don't use gui to ask for SSH passwords

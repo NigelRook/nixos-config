@@ -29,7 +29,7 @@
 
         ./configuration.nix
 
-        ./secure-boot.nix
+        ./config/secure-boot.nix
 
         ./config/gnome-desktop.nix
 

@@ -40,6 +40,8 @@
 
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
+    gnomeExtensions.hibernate-status-button
+    gnomeExtensions.appindicator
   ];
 
   environment.gnome.excludePackages =

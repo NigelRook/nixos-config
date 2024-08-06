@@ -83,6 +83,7 @@
     tpm2-tss
 
     gnomeExtensions.hibernate-status-button
+    gnomeExtensions.appindicator
 
     nixd
   ];

@@ -29,6 +29,7 @@
           ./config/gnome-desktop.nix
           ./config/firefox.nix
           ./config/dev.nix
+          ./config/gaming.nix
         ];
 
         # Optionally use extraSpecialArgs

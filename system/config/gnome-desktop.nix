@@ -41,4 +41,17 @@
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
   ];
+
+  environment.gnome.excludePackages =
+    [ pkgs.gnome-tour ] ++
+    (with pkgs.gnome; [
+      epiphany
+      geary
+      simple-scan
+      gnome-weather
+      gnome-calendar
+      gnome-contacts
+      gnome-maps
+      yelp
+  ]);
 }

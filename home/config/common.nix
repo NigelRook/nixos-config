@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, lib, ... }:
 
 {
   # link the configuration file in current directory to the specified location in home directory
@@ -75,6 +75,16 @@
       shiftwidth = 2;
     };
   };
+
+  home.activation = {
+    ensureSshKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
+        run ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" $VERBOSE_ARG
+      fi
+    '';
+  };
+
+  home.extraActivationPath = [ pkgs.openssh ];
 
   home.stateVersion = "24.05";
 

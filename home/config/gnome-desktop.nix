@@ -7,7 +7,11 @@
         font-scale = lib.mkDefault 1.1;
         audible-bell = false;
       };
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+        enable-hot-corners = false;
+      };
 
       "org/gnome/shell" = {
         enabled-extensions = [

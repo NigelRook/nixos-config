@@ -12,12 +12,9 @@
   };
 
   outputs = { nixpkgs, home-manager, nur, ... }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    {
       homeConfigurations."nigel@helmut" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.

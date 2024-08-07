@@ -10,6 +10,14 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Automatic garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "Sat *-*-* 22:00:00";
+    persistent = true;
+    options = "--delete-older-than 30d";
+  };
+
   # Bootloader.
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;

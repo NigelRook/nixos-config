@@ -13,6 +13,15 @@
         enable-hot-corners = false;
       };
 
+      "org/gnome/desktop/background" = {
+        picture-uri = "file://${../files/wallpaper.png}";
+        picture-uri-dark = "file://${../files/wallpaper.png}";
+      };
+
+      "org/gnome/desktop/screensaver" = {
+        picture-uri = "file://${../files/wallpaper.png}";
+      };
+
       "org/gnome/shell" = {
         enabled-extensions = [
           pkgs.gnomeExtensions.hibernate-status-button.extensionUuid

@@ -10,6 +10,22 @@ system:
 home:
 	home-manager switch --flake ./home
 
+.PHONY: fetch-update fetch-system-update fetch-home-update
+
+fetch-update: fetch-system-update fetch-home-update
+
+fetch-system-update:
+	nix flake update ./system
+	nixos-rebuild build --flake ./system
+	nix store diff-closures /run/current-system ./result
+	rm result
+
+fetch-home-update:
+	nix flake update ./home
+	home-manager build --flake ./home
+	nix store diff-closures "${HOME}/.local/state/nix/profiles/home-manager" ./result
+	rm result
+
 .PHONY: link-system link-home links
 
 link: link-system link-home

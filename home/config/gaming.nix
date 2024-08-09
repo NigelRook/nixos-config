@@ -1,4 +1,7 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.discord ];
+  home.packages = with pkgs; [
+    discord
+    moonlight-qt
+  ];
 }

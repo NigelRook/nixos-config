@@ -18,6 +18,8 @@
     options = "--delete-older-than 30d";
   };
 
+  nix.settings.auto-optimise-store = true;
+
   # Bootloader.
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;

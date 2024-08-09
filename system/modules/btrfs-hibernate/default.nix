@@ -18,10 +18,13 @@
 
   config = {
     nix.settings.extra-sandbox-paths = [ "/.swapvol" ];
+    nix.settings.sandbox = "relaxed";
 
     btrfs-hibernate.swapFileOffsetCalculator = pkgs.stdenv.mkDerivation rec {
       pname = "swapfile-offset-calculator";
       version = "0.1.0";
+
+      __noChroot = true;
 
       buildInputs = [ pkgs.btrfs-progs ];
 

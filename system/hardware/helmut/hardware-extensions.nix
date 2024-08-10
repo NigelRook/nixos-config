@@ -1,5 +1,8 @@
 {
-  imports = [ ../common/btrfs-attrs.nix ];
+  imports = [
+    ../common/btrfs-attrs.nix
+    ../common/intel-gpu.nix
+  ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
 

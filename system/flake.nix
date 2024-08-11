@@ -19,13 +19,19 @@
       systemDef = hostName: hostModules: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { lanzaboote = lanzaboote; };
-        modules = [
+        modules =
+        let
+          hardwareExtensionsPath = ./hardware/${hostName}/hardware-extensions.nix;
+        in
+        [
           { networking.hostName = hostName; }
           ./hardware/${hostName}/hardware-configuration.nix
-          ./hardware/${hostName}/hardware-extensions.nix
-
           ./configuration.nix
-        ] ++ hostModules;
+        ] ++ (
+          if (builtins.pathExists hardwareExtensionsPath)
+          then [ hardwareExtensionsPath ]
+          else []
+        ) ++ hostModules;
       };
     in
     builtins.mapAttrs systemDef {

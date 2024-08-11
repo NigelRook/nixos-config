@@ -21,6 +21,8 @@
             parts = lib.strings.splitString "@" userHost;
             user = lib.lists.elemAt parts 0;
             userModulePath = ./users/${user}.nix;
+            host = lib.lists.elemAt parts 1;
+            hostModulePath = ./hosts/${host}.nix;
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages."x86_64-linux";
@@ -38,6 +40,10 @@
             ] ++ (
               if builtins.pathExists userModulePath
               then [ userModulePath ]
+              else []
+            ) ++ (
+              if builtins.pathExists hostModulePath
+              then [ hostModulePath ]
               else []
             ) ++ modules;
           };

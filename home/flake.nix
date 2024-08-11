@@ -32,11 +32,11 @@
 
             modules = [
               nur.hmModules.nur
-              { nixpkgs.config.allowUnfree = true; }
               {
                 home.username = lib.mkDefault "${user}";
                 home.homeDirectory = lib.mkDefault "/home/${user}";
               }
+              ./config/common.nix
             ] ++ (
               if builtins.pathExists userModulePath
               then [ userModulePath ]
@@ -50,7 +50,6 @@
       in
       builtins.mapAttrs configDef {
         "nigel@helmut" = [
-          ./config/common.nix
           ./config/gnome-desktop.nix
           ./config/firefox.nix
           ./config/dev.nix

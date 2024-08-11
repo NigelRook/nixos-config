@@ -36,6 +36,7 @@
     in
     builtins.mapAttrs systemDef {
       helmut = [ ./archetypes/personal-laptop.nix ];
+      boyd = [ ./archetypes/personal-laptop.nix ];
     };
   };
 }

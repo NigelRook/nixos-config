@@ -53,6 +53,10 @@
           ./config/dev.nix
           ./config/gaming.nix
         ];
+        "nigel@boyd" = [
+          ./config/dev.nix
+          ./config/gaming.nix
+        ];
       };
     };
 }

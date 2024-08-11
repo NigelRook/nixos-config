@@ -31,7 +31,7 @@
             # to pass through arguments to home.nix
 
             modules = [
-              { nixpkgs.overlays = [ nur.overlay ]; }
+              nur.hmModules.nur
               { nixpkgs.config.allowUnfree = true; }
               {
                 home.username = lib.mkDefault "${user}";

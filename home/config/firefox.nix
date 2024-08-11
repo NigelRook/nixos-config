@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -12,7 +12,7 @@
         default = "DuckDuckGo";
         force = true;
       };
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      extensions = with config.nur.repos.rycee.firefox-addons; [
         bitwarden
         ublock-origin
       ];

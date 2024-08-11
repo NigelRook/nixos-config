@@ -26,7 +26,7 @@
         [
           { networking.hostName = hostName; }
           ./hardware/${hostName}/hardware-configuration.nix
-          ./configuration.nix
+          ./config/base.nix
         ] ++ (
           if (builtins.pathExists hardwareExtensionsPath)
           then [ hardwareExtensionsPath ]

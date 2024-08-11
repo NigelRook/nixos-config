@@ -20,6 +20,7 @@
             lib = nixpkgs.lib;
             parts = lib.strings.splitString "@" userHost;
             user = lib.lists.elemAt parts 0;
+            userModulePath = ./users/${user}.nix;
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages."x86_64-linux";
@@ -30,8 +31,15 @@
             modules = [
               { nixpkgs.overlays = [ nur.overlay ]; }
               { nixpkgs.config.allowUnfree = true; }
-              ./users/${user}.nix
-            ] ++ modules;
+              {
+                home.username = lib.mkDefault "${user}";
+                home.homeDirectory = lib.mkDefault "/home/${user}";
+              }
+            ] ++ (
+              if builtins.pathExists userModulePath
+              then [ userModulePath ]
+              else []
+            ) ++ modules;
           };
       in
       builtins.mapAttrs configDef {

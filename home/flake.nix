@@ -50,8 +50,6 @@
       in
       builtins.mapAttrs configDef {
         "nigel@helmut" = [
-          ./config/gnome-desktop.nix
-          ./config/firefox.nix
           ./config/dev.nix
           ./config/gaming.nix
         ];

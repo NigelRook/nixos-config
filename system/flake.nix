@@ -15,20 +15,21 @@
 
   outputs = { lanzaboote, nixpkgs, ... }@inputs: {
     # Please replace my-nixos with your hostname
-    nixosConfigurations = nixpkgs.lib.genAttrs [
-      "helmut"
-    ] (hostName: nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        { networking.hostName = hostName; }
-        ./hardware/${hostName}/hardware-configuration.nix
-        ./hardware/${hostName}/hardware-extensions.nix
+    nixosConfigurations = let
+      systemDef = hostName: hostModules: nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { lanzaboote = lanzaboote; };
+        modules = [
+          { networking.hostName = hostName; }
+          ./hardware/${hostName}/hardware-configuration.nix
+          ./hardware/${hostName}/hardware-extensions.nix
 
-        ./configuration.nix
-
-        ./archetypes/personal-laptop.nix
-      ];
-      specialArgs = { lanzaboote = lanzaboote; };
-    });
+          ./configuration.nix
+        ] ++ hostModules;
+      };
+    in
+    builtins.mapAttrs systemDef {
+      helmut = [ ./archetypes/personal-laptop.nix ];
+    };
   };
 }

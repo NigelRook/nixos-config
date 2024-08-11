@@ -13,28 +13,22 @@
     };
   };
 
-  outputs = { nixpkgs, lanzaboote, ... }@inputs: {
+  outputs = { lanzaboote, nixpkgs, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations = nixpkgs.lib.genAttrs [
       "helmut"
     ] (hostName: nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        lanzaboote.nixosModules.lanzaboote
-
+        { networking.hostName = hostName; }
         ./hardware/${hostName}/hardware-configuration.nix
         ./hardware/${hostName}/hardware-extensions.nix
 
-        { networking.hostName = hostName; }
-
         ./configuration.nix
 
-        ./config/secure-boot.nix
-
-        ./config/gnome-desktop.nix
-
-        ./config/gaming.nix
+        ./archetypes/personal-laptop.nix
       ];
+      specialArgs = { lanzaboote = lanzaboote; };
     });
   };
 }

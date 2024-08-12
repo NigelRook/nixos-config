@@ -38,13 +38,3 @@ With setup mode enabled from bios (possibly just by deleting all keys) run `sbct
 ## Enabling tpm2 auto-unlock of LUKS partition
 
 `systemd-cryptenroll /dev/nvme0n1p2 --wipe-slot=tpm2 --tpm2-device=auto`
-
-## Enabling hibernate to swap file
-
-```
-  boot.resumeDevice = "/dev/mapper/nixos";
-  boot.kernelParams = [
-    # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
-    "resume_offset=2456778"
-  ];
-```

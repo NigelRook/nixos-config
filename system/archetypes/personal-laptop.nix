@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ../config/secure-boot.nix
@@ -8,4 +8,7 @@
 
   services.tlp.enable = true;
   services.power-profiles-daemon.enable = false;
+
+  environment.systemPackages = [ pkgs.powertop ];
+  powerManagement.powertop.enable = true;
 }

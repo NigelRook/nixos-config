@@ -11,4 +11,11 @@
       size = 16*1024;
     }
   ];
+
+  # Boosting CPU causes brownouts due to broken battery
+  # These settings prevent that
+  services.tlp.settings = {
+    CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power";
+    CPU_BOOST_ON_AC = 0;
+  };
 }

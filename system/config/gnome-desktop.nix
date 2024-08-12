@@ -39,21 +39,20 @@
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
-    gnome.gnome-tweaks
+    gnome-tweaks
     gnomeExtensions.hibernate-status-button
     gnomeExtensions.appindicator
   ];
 
-  environment.gnome.excludePackages =
-    [ pkgs.gnome-tour ] ++
-    (with pkgs.gnome; [
-      epiphany
-      geary
-      simple-scan
-      gnome-weather
-      gnome-calendar
-      gnome-contacts
-      gnome-maps
-      yelp
-  ]);
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    epiphany
+    geary
+    simple-scan
+    gnome.gnome-weather
+    gnome-calendar
+    gnome.gnome-contacts
+    gnome.gnome-maps
+    yelp
+  ];
 }

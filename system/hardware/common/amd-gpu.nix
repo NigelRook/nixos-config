@@ -11,5 +11,5 @@
     extraPackages32bit = [ pkgs.driversi686Linux.amdvlk ];
   };
 
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.driSupport32Bit = true;
 }

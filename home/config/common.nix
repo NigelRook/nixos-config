@@ -67,7 +67,12 @@
     };
   };
 
-  programs.atuin.enable = true;
+  programs.atuin = {
+    enable = true;
+    settings = {
+      style = "compact";
+    };
+  };
 
   programs.vim = {
     enable = true;

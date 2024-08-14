@@ -3,8 +3,9 @@
   dconf = {
     enable = true;
     settings = {
+      "org/gnome/mutter".experimental-features = [ "scale-monitor-framebuffer" ];
+
       "org/gnome/Console" = {
-        font-scale = lib.mkDefault 1.1;
         audible-bell = false;
       };
 

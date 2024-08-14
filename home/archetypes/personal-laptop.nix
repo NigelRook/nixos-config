@@ -1,7 +1,7 @@
 {
   imports = [
     ../config/desktop.nix
-    ../config/gnome.nix
+    #../config/kde.nix
     ../config/firefox.nix
   ];
 }

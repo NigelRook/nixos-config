@@ -176,4 +176,19 @@
 
     </touchégg>
   '';
+
+  programs.plasma = {
+    enable = true;
+    configFile = {
+      "kcminputrc"."Libinput/1267/12596/ASUE140A:00 04F3:3134 Touchpad"."ClickMethod" = 2;
+      "kcminputrc"."Libinput/1267/12596/ASUE140A:00 04F3:3134 Touchpad"."NaturalScroll" = true;
+      "kcminputrc"."Libinput/1267/12596/ASUE140A:00 04F3:3134 Touchpad"."TapDragLock" = true;
+      "kdeglobals"."WM"."activeBackground" = "49,54,59";
+      "kdeglobals"."WM"."activeBlend" = "252,252,252";
+      "kdeglobals"."WM"."activeForeground" = "252,252,252";
+      "kdeglobals"."WM"."inactiveBackground" = "42,46,50";
+      "kdeglobals"."WM"."inactiveBlend" = "161,169,177";
+      "kdeglobals"."WM"."inactiveForeground" = "161,169,177";
+    };
+  };
 }

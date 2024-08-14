@@ -9,9 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, nur, ... }:
+  outputs = { nixpkgs, home-manager, nur, plasma-manager, ... }:
     {
       homeConfigurations =
       let
@@ -32,6 +37,7 @@
 
             modules = [
               nur.hmModules.nur
+              plasma-manager.homeManagerModules.plasma-manager
               {
                 home.username = lib.mkDefault "${user}";
                 home.homeDirectory = lib.mkDefault "/home/${user}";

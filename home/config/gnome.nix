@@ -1,7 +1,5 @@
 { pkgs, lib, ... }:
 {
-  imports = [ ./desktop.nix ];
-
   dconf = {
     enable = true;
     settings = {

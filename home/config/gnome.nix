@@ -24,9 +24,10 @@
       };
 
       "org/gnome/shell" = {
-        enabled-extensions = [
-          pkgs.gnomeExtensions.hibernate-status-button.extensionUuid
-          pkgs.gnomeExtensions.appindicator.extensionUuid
+        enabled-extensions = with pkgs.gnomeExtensions; [
+          hibernate-status-button.extensionUuid
+          appindicator.extensionUuid
+          clipboard-history.extensionUuid
         ];
         favorite-apps = [
           "firefox.desktop"

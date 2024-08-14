@@ -8,6 +8,7 @@
     gnome-tweaks
     gnomeExtensions.hibernate-status-button
     gnomeExtensions.appindicator
+    gnomeExtensions.clipboard-history
   ];
 
   environment.gnome.excludePackages = with pkgs; [

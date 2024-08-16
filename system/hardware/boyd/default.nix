@@ -18,4 +18,6 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.fwupd.enable = true;
+
+  boot.kernelParams = [ "zswap.enable=1" ];
 }

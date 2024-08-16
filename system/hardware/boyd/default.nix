@@ -3,7 +3,6 @@
     ./hardware-configuration.nix
     ../common/btrfs-attrs.nix
     ../common/amd-gpu.nix
-    ../common/fingerprint.nix
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
@@ -13,4 +12,11 @@
       size = 32*1024;
     }
   ];
+
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
+
+  services.fprintd.enable = true;
 }

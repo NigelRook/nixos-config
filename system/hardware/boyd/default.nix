@@ -1,9 +1,10 @@
+{ lib, nixos-hardware, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../common/secure-boot.nix
     ../common/btrfs-attrs.nix
-    ../common/amd-gpu.nix
+    nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
@@ -14,10 +15,5 @@
     }
   ];
 
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "simple";
-  };
-
-  services.fprintd.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 }

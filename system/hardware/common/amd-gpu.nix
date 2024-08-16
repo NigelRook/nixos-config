@@ -3,13 +3,13 @@
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  hardware.hardware = {
+  hardware.graphics = {
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
       amdvlk
     ];
-    extraPackages32bit = [ pkgs.driversi686Linux.amdvlk ];
+    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
   };
 
-  hardware.graphics.driSupport32Bit = true;
+  environment.variables.AMD_VULKAN_ICD = "RADV";
 }

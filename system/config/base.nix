@@ -95,9 +95,6 @@
     tpm2-tss
   ];
 
-  # Don't use gui to ask for SSH passwords
-  programs.ssh.enableAskPassword = false;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nigel = {
     isNormalUser = true;

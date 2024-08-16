@@ -2,6 +2,7 @@
   imports = [
     ../common/btrfs-attrs.nix
     ../common/amd-gpu.nix
+    ../common/fingerprint.nix
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;

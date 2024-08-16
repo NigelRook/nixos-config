@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../common/secure-boot.nix
     ../common/btrfs-attrs.nix
     ../common/intel-gpu.nix
   ];

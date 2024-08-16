@@ -16,4 +16,6 @@
   ];
 
   services.xserver.videoDrivers = [ "amdgpu" ];
+
+  services.fwupd.enable = true;
 }

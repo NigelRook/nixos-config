@@ -20,18 +20,11 @@
         system = "x86_64-linux";
         specialArgs = { lanzaboote = lanzaboote; };
         modules =
-        let
-          hardwareExtensionsPath = ./hardware/${hostName}/hardware-extensions.nix;
-        in
         [
           { networking.hostName = hostName; }
-          ./hardware/${hostName}/hardware-configuration.nix
+          ./hardware/${hostName}
           ./config/base.nix
-        ] ++ (
-          if (builtins.pathExists hardwareExtensionsPath)
-          then [ hardwareExtensionsPath ]
-          else []
-        ) ++ hostModules;
+        ] ++ hostModules;
       };
     in
     builtins.mapAttrs systemDef {

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./hardware-configuration.nix
     ../common/btrfs-attrs.nix
     ../common/amd-gpu.nix
     ../common/fingerprint.nix

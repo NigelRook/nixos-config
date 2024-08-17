@@ -16,12 +16,12 @@
       };
 
       "org/gnome/desktop/background" = {
-        picture-uri = "file://${../files/wallpaper.png}";
-        picture-uri-dark = "file://${../files/wallpaper.png}";
+        picture-uri = lib.mkDefault "file://${../files/wallpaper.png}";
+        picture-uri-dark = lib.mkDefault "file://${../files/wallpaper.png}";
       };
 
       "org/gnome/desktop/screensaver" = {
-        picture-uri = "file://${../files/wallpaper.png}";
+        picture-uri = lib.mkDefault "file://${../files/wallpaper.png}";
       };
 
       "org/gnome/shell" = {

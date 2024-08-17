@@ -11,6 +11,10 @@
         enable-hot-corners = false;
       };
 
+      "org/gnome/desktop/wm/keybindings" = {
+        toggle-fullscreen = [ "<Super>F11" ];
+      };
+
       "org/gnome/desktop/background" = {
         picture-uri = "file://${../files/wallpaper.png}";
         picture-uri-dark = "file://${../files/wallpaper.png}";

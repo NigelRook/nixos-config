@@ -16,6 +16,7 @@
       "window.menuBarVisibility" = "compact";
       "window.titleBarStyle" = "custom";
       "editor.renderWhitespace" = "all";
+      "window.autoDetectColorScheme" = true;
     };
   };
 }

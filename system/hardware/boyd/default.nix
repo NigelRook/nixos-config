@@ -20,4 +20,9 @@
   services.fwupd.enable = true;
 
   boot.kernelParams = [ "zswap.enable=1" ];
+
+  hardware.amdgpu.amdvlk = {
+    enable = true;
+    support32Bit.enable = true;
+  };
 }

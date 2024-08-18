@@ -1,4 +1,4 @@
-{ lib, nixos-hardware, ... }:
+{ nixos-hardware, ... }:
 {
   imports = [
     ./hardware-configuration.nix

@@ -18,5 +18,14 @@
                 }
             }
         }
-  }
+},
+"cSpell.words": [
+    "cryptenroll",
+    "disko",
+    "LUKS",
+    "nixos",
+    "nixpgks",
+    "nvme",
+    "sbctl"
+]
 }

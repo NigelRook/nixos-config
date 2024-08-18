@@ -5,6 +5,7 @@
     ../common/secure-boot.nix
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
+    ./abm.nix
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
@@ -27,4 +28,7 @@
   };
 
   boot.loader.systemd-boot.consoleMode = "2";
+
+  # Disable Active Backlight Manager (ABM results in poor contrast on battery in power saver mode)
+  hardware.framework.abm = false;
 }

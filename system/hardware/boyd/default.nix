@@ -25,4 +25,6 @@
     enable = true;
     support32Bit.enable = true;
   };
+
+  boot.loader.systemd-boot.consoleMode = "2";
 }

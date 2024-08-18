@@ -10,6 +10,7 @@
       jnoortheen.nix-ide
       editorconfig.editorconfig
       streetsidesoftware.code-spell-checker
+      yzhang.markdown-all-in-one
     ];
     userSettings = {
       "files.autoSave" = "onFocusChange";

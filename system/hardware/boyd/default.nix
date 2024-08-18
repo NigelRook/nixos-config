@@ -1,4 +1,4 @@
-{ nixos-hardware, ... }:
+{ nixos-hardware, pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -28,6 +28,15 @@
   };
 
   boot.loader.systemd-boot.consoleMode = "2";
+
+  # Framework utilities
+  environment.systemPackages = with pkgs; [
+    fw-ectool
+    framework-tool
+  ];
+
+  # Kernel modules for additional hardware options
+  #hardware.framework.enableKmod = true;
 
   # Disable Active Backlight Manager (ABM results in poor contrast on battery in power saver mode)
   hardware.framework.abm = false;

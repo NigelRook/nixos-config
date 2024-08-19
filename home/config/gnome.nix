@@ -3,6 +3,8 @@
   dconf = {
     enable = true;
     settings = {
+      "org/gnome/mutter".dynamic-workspaces = true;
+
       "org/gnome/Console" = {
         audible-bell = false;
       };

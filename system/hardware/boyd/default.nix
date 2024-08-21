@@ -6,6 +6,7 @@
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
     ./abm.nix
+    ../../modules/smooth-backlight
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;

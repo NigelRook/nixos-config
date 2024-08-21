@@ -1,0 +1,13 @@
+diff --git a/plugins/power/gsd-power-manager.c b/plugins/power/gsd-power-manager.c
+index 268a46cc..3bd159aa 100644
+--- a/plugins/power/gsd-power-manager.c
++++ b/plugins/power/gsd-power-manager.c
+@@ -86,7 +86,7 @@
+ /* The bandwidth of the low-pass filter used to smooth ambient light readings,
+  * measured in Hz.  Smaller numbers result in smoother backlight changes.
+  * Larger numbers are more responsive to abrupt changes in ambient light. */
+-#define GSD_AMBIENT_BANDWIDTH_HZ       0.1f
++#define GSD_AMBIENT_BANDWIDTH_HZ       0.02f
+
+ /* Convert bandwidth to time constant.  Units of constant are microseconds. */
+ #define GSD_AMBIENT_TIME_CONSTANT       (G_USEC_PER_SEC * 1.0f / (2.0f * G_PI * GSD_AMBIENT_BANDWIDTH_HZ))

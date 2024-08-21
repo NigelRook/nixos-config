@@ -32,6 +32,7 @@
 
           "org/gnome/Console" = {
             audible-bell = false;
+            theme = "auto";
           };
 
           "org/gnome/desktop/interface" = {

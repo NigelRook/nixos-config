@@ -74,9 +74,7 @@
           };
 
           "org/gnome/settings-daemon/plugins/power" = {
-            sleep-inactive-ac-timeout = mkInt32 1800;
             sleep-inactive-ac-type = "nothing";
-            sleep-inactive-battery-timeout = mkInt32 300;
             sleep-inactive-battery-type = "nothing";
           };
         };

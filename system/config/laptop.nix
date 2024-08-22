@@ -7,7 +7,7 @@
     lidSwitch = "suspend-then-hibernate";
     extraConfig = ''
       IdleAction=suspend-then-hibernate
-      IdleActionSec=10s
+      IdleActionSec=10m
     '';
   };
 

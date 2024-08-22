@@ -35,8 +35,10 @@
     framework-tool
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_testing;
+
   # Kernel modules for additional hardware options
-  #hardware.framework.enableKmod = true;
+  hardware.framework.enableKmod = false;
 
   # Disable Active Backlight Manager (ABM results in poor contrast on battery in power saver mode)
   hardware.framework.abm = false;

@@ -6,6 +6,7 @@
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
     ./abm.nix
+    ../../modules/hack-systemd-boot-opts
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
@@ -27,7 +28,10 @@
     support32Bit.enable = true;
   };
 
-  boot.loader.systemd-boot.consoleMode = "2";
+  boot.loader.systemd-boot = {
+    consoleMode = "8";
+    editor = false;
+  };
 
   # Framework utilities
   environment.systemPackages = with pkgs; [

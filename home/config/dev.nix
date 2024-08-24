@@ -14,6 +14,7 @@
       jnoortheen.nix-ide
       ms-python.python
     ];
+    mutableExtensionsDir = false;
     userSettings = {
       "files.autoSave" = "onFocusChange";
       "window.menuBarVisibility" = "compact";

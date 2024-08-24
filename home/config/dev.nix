@@ -22,4 +22,10 @@
       "window.autoDetectColorScheme" = true;
     };
   };
+
+  programs.git.extraConfig = {
+    init = {
+      defaultBranch = "main";
+    };
+  };
 }

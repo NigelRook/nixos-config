@@ -7,10 +7,11 @@
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
       editorconfig.editorconfig
+      arrterian.nix-env-selector
       streetsidesoftware.code-spell-checker
       yzhang.markdown-all-in-one
+      jnoortheen.nix-ide
     ];
     userSettings = {
       "files.autoSave" = "onFocusChange";

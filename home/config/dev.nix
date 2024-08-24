@@ -12,6 +12,7 @@
       streetsidesoftware.code-spell-checker
       yzhang.markdown-all-in-one
       jnoortheen.nix-ide
+      ms-python.python
     ];
     userSettings = {
       "files.autoSave" = "onFocusChange";

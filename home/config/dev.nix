@@ -10,6 +10,7 @@
       editorconfig.editorconfig
       arrterian.nix-env-selector
       streetsidesoftware.code-spell-checker
+      github.copilot
       yzhang.markdown-all-in-one
       jnoortheen.nix-ide
       ms-python.python

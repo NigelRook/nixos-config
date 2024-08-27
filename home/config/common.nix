@@ -41,6 +41,10 @@
         indent_style = "tab";
         indent_size = 4;
       };
+      "*,go" = {
+        # gofmt prefers tabs by default
+        indent_style = "tab";
+      };
     };
   };
 

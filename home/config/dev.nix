@@ -13,6 +13,7 @@
       yzhang.markdown-all-in-one
       jnoortheen.nix-ide
       ms-python.python
+      golang.go
     ];
     mutableExtensionsDir = false;
     userSettings = {

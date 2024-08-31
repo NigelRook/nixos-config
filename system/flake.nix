@@ -12,6 +12,10 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, nixos-hardware, lanzaboote, ... }@inputs: {
@@ -19,7 +23,7 @@
     nixosConfigurations = let
       systemDef = hostName: hostModules: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit lanzaboote nixos-hardware; };
+        specialArgs = { inherit lanzaboote nixos-hardware inputs; };
         modules =
         [
           { networking.hostName = hostName; }

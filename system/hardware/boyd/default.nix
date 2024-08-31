@@ -1,10 +1,11 @@
-{ nixos-hardware, pkgs, ... }:
+{ nixos-hardware, pkgs, inputs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../common/secure-boot.nix
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
+    inputs.fw-fanctrl.nixosModules.default
     ./abm.nix
     ../../modules/hack-systemd-boot-opts
     ../../modules/fw-battery-sustainer
@@ -47,4 +48,26 @@
 
   # Disable Active Backlight Manager (ABM results in poor contrast on battery in power saver mode)
   hardware.framework.abm = false;
+
+  # Edit fan curve
+  programs.fw-fanctrl = {
+    enable = true;
+    config = {
+      defaultStrategy = "mine";
+      strategies = {
+        "mine" = {
+          fanSpeedUpdateFrequency = 5;
+          movingAverageInterval = 30;
+          speedCurve = [
+            { temp = 0; speed = 0; }
+            { temp = 35; speed = 0; }
+            { temp = 40; speed = 20; }
+            { temp = 50; speed = 40; }
+            { temp = 80; speed = 80; }
+            { temp = 90; speed = 100; }
+          ];
+        };
+      };
+    };
+  };
 }

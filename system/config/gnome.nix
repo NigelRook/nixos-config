@@ -16,10 +16,10 @@
     epiphany
     geary
     simple-scan
-    gnome.gnome-weather
+    gnome-weather
     gnome-calendar
-    gnome.gnome-contacts
-    gnome.gnome-maps
+    gnome-contacts
+    gnome-maps
     yelp
   ];
 

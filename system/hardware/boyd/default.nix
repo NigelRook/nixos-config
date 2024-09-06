@@ -8,7 +8,7 @@
     inputs.fw-fanctrl.nixosModules.default
     ./abm.nix
     ../../modules/hack-systemd-boot-opts
-    ../../modules/fw-battery-sustainer
+    #../../modules/fw-battery-sustainer
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;

@@ -32,4 +32,6 @@
   # services.xserver.libinput.enable = true;
 
   programs.firefox.enable = true;
+
+  programs.coolercontrol.enable = true;
 }

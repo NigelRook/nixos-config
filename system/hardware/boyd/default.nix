@@ -6,7 +6,6 @@
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
     inputs.fw-fanctrl.nixosModules.default
-    ./abm.nix
     ../../modules/hack-systemd-boot-opts
     #../../modules/fw-battery-sustainer
   ];
@@ -45,9 +44,6 @@
 
   # Kernel modules for additional hardware options
   hardware.framework.enableKmod = false;
-
-  # Disable Active Backlight Manager (ABM results in poor contrast on battery in power saver mode)
-  hardware.framework.abm = false;
 
   # Edit fan curve
   programs.fw-fanctrl = {

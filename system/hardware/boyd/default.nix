@@ -7,6 +7,7 @@
     nixos-hardware.nixosModules.framework-13-7040-amd
     inputs.fw-fanctrl.nixosModules.default
     ../../modules/hack-systemd-boot-opts
+    ../../modules/easyeffects
     #../../modules/fw-battery-sustainer
   ];
 

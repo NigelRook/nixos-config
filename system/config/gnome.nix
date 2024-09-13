@@ -20,7 +20,6 @@
     gnome-calendar
     gnome-contacts
     gnome-maps
-    yelp
   ];
 
   programs.dconf.profiles = {

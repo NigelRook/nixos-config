@@ -19,6 +19,12 @@
     }
   ];
 
+  boot.resumeDevice = "/dev/mapper/nixos";
+  boot.kernelParams = [
+    # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
+    "resume_offset=533760"
+  ];
+
   #services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.fwupd.enable = true;

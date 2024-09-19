@@ -45,7 +45,7 @@
     framework-tool
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_10;
 
   # Kernel modules for additional hardware options
   hardware.framework.enableKmod = false;

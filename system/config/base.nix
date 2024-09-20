@@ -62,6 +62,8 @@
   # Set your time zone.
   time.timeZone = "Europe/London";
 
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 

@@ -45,7 +45,16 @@
     framework-tool
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_10.override {
+    argsOverride = rec {
+      src = pkgs.fetchurl {
+            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+            sha256 = "0n385x7hc5pqxiiy26ampgzf56wqfvydg70va27xrhm7w1q9nj54";
+      };
+      version = "6.10.9";
+      modDirVersion = "6.10.9";
+    };
+  });
 
   # Kernel modules for additional hardware options
   hardware.framework.enableKmod = false;

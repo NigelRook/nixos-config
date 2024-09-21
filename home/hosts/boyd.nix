@@ -28,4 +28,6 @@
       }
     '';
   };
+
+  services.easyeffects.enable = true;
 }

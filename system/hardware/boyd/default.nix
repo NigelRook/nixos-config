@@ -22,6 +22,7 @@
   boot.kernelParams = [
     # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
     "resume_offset=533760"
+    "zswap.enabled=1"
   ];
 
   #services.xserver.videoDrivers = [ "amdgpu" ];

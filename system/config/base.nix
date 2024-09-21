@@ -21,7 +21,7 @@
   nix.settings.auto-optimise-store = true;
 
   # Bootloader.
-  boot.loader.timeout = 1;
+  boot.loader.timeout = 2;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

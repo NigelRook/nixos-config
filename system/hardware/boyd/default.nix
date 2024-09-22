@@ -45,15 +45,21 @@
     framework-tool
   ];
 
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_10.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "0n385x7hc5pqxiiy26ampgzf56wqfvydg70va27xrhm7w1q9nj54";
-      };
-      version = "6.10.9";
-      modDirVersion = "6.10.9";
+  boot.kernelPackages = pkgs.linuxPackages_6_10;
+
+  hardware.bluetooth.package = pkgs.bluez.overrideAttrs (finalAttrs: previousAttrs: rec {
+    version = "5.78";
+
+    src = pkgs.fetchurl {
+      url = "mirror://kernel/linux/bluetooth/bluez-${version}.tar.xz";
+      sha256 = "sha256-gw/tGRXF03W43g9eb0X83qDcxf9f+z0x227Q8A1zxeM=";
     };
+
+    patches = [];
+
+    buildInputs = previousAttrs.buildInputs ++ [
+      pkgs.python3Packages.pygments
+    ];
   });
 
   # Kernel modules for additional hardware options

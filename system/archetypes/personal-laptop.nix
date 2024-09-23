@@ -4,5 +4,6 @@
     ../config/desktop.nix
     ../config/gnome.nix
     ../config/gaming.nix
+    ../config/dev.nix
   ];
 }

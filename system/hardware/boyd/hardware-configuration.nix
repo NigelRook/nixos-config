@@ -21,6 +21,18 @@
 
   boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/b8ef3d76-8a86-4d67-b238-81d6f9b9454b";
 
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+      fsType = "btrfs";
+      options = [ "subvol=log" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
+    };
+
   fileSystems."/.snapshots" =
     { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
       fsType = "btrfs";
@@ -33,28 +45,16 @@
       options = [ "subvol=swap" ];
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BB23-898A";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
-
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
       fsType = "btrfs";
       options = [ "subvol=home" ];
     };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
-      fsType = "btrfs";
-      options = [ "subvol=log" ];
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/1B20-DFBA";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
     };
 
   swapDevices = [ ];

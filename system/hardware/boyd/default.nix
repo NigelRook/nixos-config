@@ -29,10 +29,10 @@
 
   services.fwupd.enable = true;
 
-  hardware.amdgpu.amdvlk = {
-    enable = true;
-    support32Bit.enable = true;
-  };
+  # hardware.amdgpu.amdvlk = {
+  #   enable = true;
+  #   support32Bit.enable = true;
+  # };
 
   boot.loader.systemd-boot = {
     consoleMode = "8";

@@ -45,8 +45,6 @@
     framework-tool
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_10;
-
   hardware.bluetooth.package = pkgs.bluez.overrideAttrs (finalAttrs: previousAttrs: rec {
     version = "5.78";
 

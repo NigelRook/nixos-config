@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [ vscode ];
   virtualisation.libvirtd = {
     enable = true;
     qemu = {

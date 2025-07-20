@@ -92,6 +92,7 @@
     ack
     gnumake
     htop
+    btop
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss

@@ -67,18 +67,37 @@
   programs.fw-fanctrl = {
     enable = true;
     config = {
-      defaultStrategy = "mine";
+      defaultStrategy = "high";
       strategies = {
-        "mine" = {
+        "high" = {
           fanSpeedUpdateFrequency = 5;
           movingAverageInterval = 30;
           speedCurve = [
-            { temp = 0; speed = 0; }
-            { temp = 35; speed = 0; }
-            { temp = 40; speed = 20; }
-            { temp = 50; speed = 40; }
-            { temp = 80; speed = 80; }
-            { temp = 90; speed = 100; }
+            { temp = 0; speed = 15; }
+            { temp = 30; speed = 15; }
+            { temp = 40; speed = 30; }
+            { temp = 70; speed = 60; }
+            { temp = 75; speed = 80; }
+            { temp = 85; speed = 100; }
+          ];
+        };
+        "deaf" = {
+          fanSpeedUpdateFrequency = 2;
+          movingAverageInterval = 5;
+          speedCurve = [
+            { temp =  0; speed = 20; }
+            { temp =  40; speed = 30; }
+            { temp =  50; speed = 50; }
+            { temp =  60; speed = 100; }
+          ];
+        };
+        "aeolus": {
+          fanSpeedUpdateFrequency = 2;
+          movingAverageInterval = 5;
+          speedCurve = [
+            { temp = 0; speed = 20; }
+            { temp = 40; speed = 50; }
+            { temp = 65; speed = 100; }
           ];
         };
       };

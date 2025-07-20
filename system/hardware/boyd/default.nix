@@ -46,7 +46,7 @@
   ];
 
   hardware.bluetooth.package = pkgs.bluez.overrideAttrs (finalAttrs: previousAttrs: rec {
-    version = "5.78";
+    version = "5.83";
 
     src = pkgs.fetchurl {
       url = "mirror://kernel/linux/bluetooth/bluez-${version}.tar.xz";
@@ -55,9 +55,9 @@
 
     patches = [];
 
-    buildInputs = previousAttrs.buildInputs ++ [
-      pkgs.python3Packages.pygments
-    ];
+    # buildInputs = previousAttrs.buildInputs ++ [
+    #   pkgs.python3Packages.pygments
+    # ];
   });
 
   # Kernel modules for additional hardware options

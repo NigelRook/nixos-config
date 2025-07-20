@@ -105,9 +105,6 @@
     description = "Nigel Rook";
     extraGroups = [ "networkmanager" "wheel" ];
     initialPassword = "changeme";
-    packages = with pkgs; [
-      home-manager
-    ];
   };
 
   # This value determines the NixOS release from which the default

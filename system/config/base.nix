@@ -93,6 +93,7 @@
     gnumake
     htop
     btop
+    chezmoi
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss

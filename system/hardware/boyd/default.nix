@@ -91,7 +91,7 @@
             { temp =  60; speed = 100; }
           ];
         };
-        "aeolus": {
+        "aeolus" = {
           fanSpeedUpdateFrequency = 2;
           movingAverageInterval = 5;
           speedCurve = [

@@ -50,7 +50,7 @@
 
     src = pkgs.fetchurl {
       url = "mirror://kernel/linux/bluetooth/bluez-${version}.tar.xz";
-      sha256 = "sha256-gw/tGRXF03W43g9eb0X83qDcxf9f+z0x227Q8A1zxeM=";
+      sha256 = "sha256-EIUi2QnSIFgTmb/sk9qrYgNVOc7vPdo+eZcHhcY70kw=";
     };
 
     patches = [];

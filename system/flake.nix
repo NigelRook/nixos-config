@@ -7,9 +7,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # home-manager, used for managing user configuration
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-
-      # Optional but recommended to limit the size of your system closure.
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fw-fanctrl = {

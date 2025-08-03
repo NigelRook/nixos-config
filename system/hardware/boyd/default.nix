@@ -35,7 +35,7 @@
   # };
 
   boot.loader.systemd-boot = {
-    consoleMode = "8";
+    consoleMode = "5";
     editor = false;
   };
 

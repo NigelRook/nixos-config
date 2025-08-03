@@ -14,47 +14,47 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
       fsType = "btrfs";
       options = [ "subvol=root" ];
     };
 
-  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/b8ef3d76-8a86-4d67-b238-81d6f9b9454b";
+  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/638a5d45-f95d-4957-b127-0a97cb738596";
 
-  fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
       fsType = "btrfs";
-      options = [ "subvol=log" ];
+      options = [ "subvol=home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+      fsType = "btrfs";
+      options = [ "subvol=log" ];
+    };
+
   fileSystems."/.snapshots" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
       fsType = "btrfs";
       options = [ "subvol=snapshots" ];
     };
 
   fileSystems."/.swapvol" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
+    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
       fsType = "btrfs";
       options = [ "subvol=swap" ];
     };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/4e0018fc-d166-4d78-88d4-e5d07467f222";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
-
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1B20-DFBA";
+    { device = "/dev/disk/by-uuid/D8F8-656D";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];

@@ -94,6 +94,8 @@
     htop
     btop
     chezmoi
+    gnupg
+    atuin
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss

@@ -11,5 +11,8 @@
   # Disable fingerprint login - it slows kde login
   security.pam.services.login.fprintAuth = false;
 
+  # Required for theming gtk apps
+  programs.dconf.enable = true;
+
   environment.systemPackages = with pkgs; [kdePackages.koi];
 }

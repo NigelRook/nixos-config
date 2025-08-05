@@ -21,8 +21,6 @@
   boot.kernelPackages = pkgs.linuxPackages_6_15;
 
   boot.kernelParams = [
-    # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
-    "resume_offset=533760"
     "zswap.enabled=1"
   ];
 

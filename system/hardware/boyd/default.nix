@@ -6,8 +6,6 @@
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
     inputs.fw-fanctrl.nixosModules.default
-    #../../modules/hack-systemd-boot-opts
-    #../../modules/fw-battery-sustainer
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;

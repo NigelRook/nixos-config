@@ -18,7 +18,8 @@
     }
   ];
 
-  boot.resumeDevice = "/dev/mapper/nixos";
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
+
   boot.kernelParams = [
     # sudo btrfs inspect-internal map-swapfile -r /.swapvol/swapfile
     "resume_offset=533760"

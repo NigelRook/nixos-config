@@ -24,6 +24,8 @@
     "zswap.enabled=1"
   ];
 
+  boot.plymouth.enable = true;
+
   #services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware.graphics.extraPackages = with pkgs; [

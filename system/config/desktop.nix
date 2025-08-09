@@ -44,4 +44,8 @@
   programs.firefox.enable = true;
 
   programs.coolercontrol.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    discord
+  ];
 }

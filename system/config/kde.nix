@@ -16,5 +16,8 @@
   # Required for theming gtk apps
   programs.dconf.enable = true;
 
-  environment.systemPackages = with pkgs; [kdePackages.koi];
+  environment.systemPackages = with pkgs; [
+    kdePackages.koi
+    kdePackages.kcalc
+  ];
 }

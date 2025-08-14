@@ -45,6 +45,11 @@
     editor = false;
   };
 
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+  };
+
   # Framework utilities
   environment.systemPackages = with pkgs; [
     fw-ectool

@@ -4,12 +4,21 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     gnome-tweaks
-    gnomeExtensions.hibernate-status-button
-    gnomeExtensions.appindicator
-    gnomeExtensions.clipboard-history
-  ];
+    dconf-editor
+    ptyxis
+  ]) ++ (with pkgs.gnomeExtensions; [
+    hibernate-status-button
+    appindicator
+    clipboard-history
+    arcmenu
+    blur-my-shell
+    dash-to-panel
+    gsconnect
+    caffeine
+    night-theme-switcher
+  ]);
 
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour
@@ -20,6 +29,7 @@
     gnome-calendar
     gnome-contacts
     gnome-maps
+    gnome-console
   ];
 
   programs.dconf.profiles = {

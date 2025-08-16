@@ -1,5 +1,12 @@
 { pkgs, lib, ... }:
 {
+  users.users.nigel-gnome = {
+    isNormalUser = true;
+    description = "Nigel Rook (Gnome)";
+    extraGroups = [ "networkmanager" "wheel" ];
+    initialPassword = "changeme";
+  };
+
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;

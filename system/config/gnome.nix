@@ -5,6 +5,7 @@
     description = "Nigel Rook (Gnome)";
     extraGroups = [ "networkmanager" "wheel" ];
     initialPassword = "changeme";
+    createHome = true;
   };
 
   # Enable the GNOME Desktop Environment.

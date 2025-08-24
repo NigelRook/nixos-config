@@ -26,6 +26,9 @@
     gsconnect
     caffeine
     night-theme-switcher
+    notification-banner-reloaded
+    user-themes
+    dash-to-dock
   ]);
 
   environment.gnome.excludePackages = with pkgs; [

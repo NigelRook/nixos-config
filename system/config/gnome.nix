@@ -16,6 +16,7 @@
     gnome-tweaks
     dconf-editor
     ptyxis
+    blanket
   ]) ++ (with pkgs.gnomeExtensions; [
     hibernate-status-button
     appindicator

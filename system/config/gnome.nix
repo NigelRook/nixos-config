@@ -48,7 +48,10 @@
       enableUserDb = true;
       databases = [{
         settings = with lib.gvariant; {
-          "org/gnome/mutter".dynamic-workspaces = true;
+          "org/gnome/mutter" = {
+            dynamic-workspaces = true;
+            experimental-features = ["variable-refresh-rate"];
+          };
 
           "org/gnome/Console" = {
             audible-bell = false;

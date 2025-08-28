@@ -17,6 +17,7 @@
     dconf-editor
     ptyxis
     blanket
+    rewaita
   ]) ++ (with pkgs.gnomeExtensions; [
     hibernate-status-button
     appindicator

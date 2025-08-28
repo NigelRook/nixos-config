@@ -10,10 +10,10 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fw-fanctrl = {
-      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # fw-fanctrl = {
+    #   url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = { nixpkgs, nixos-hardware, lanzaboote, ... }@inputs: {

@@ -5,7 +5,7 @@
     # ../common/secure-boot.nix
     ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
-    inputs.fw-fanctrl.nixosModules.default
+    # inputs.fw-fanctrl.nixosModules.default
   ];
 
   boot.initrd.luks.devices."nixos".allowDiscards = true;
@@ -60,8 +60,11 @@
   hardware.framework.enableKmod = false;
 
   # Edit fan curve
-  programs.fw-fanctrl = {
+  hardware.fw-fanctrl = {
     enable = true;
+    package = pkgs.fw-fanctrl.overrideAttrs (finalAttrs: prevAttrs: {
+      patches = (prevAttrs.patches or []) ++ [ ./fw-fanctrl.patch ];
+    });
     config = {
       defaultStrategy = "high";
       strategies = {

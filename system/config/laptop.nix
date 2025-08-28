@@ -3,7 +3,7 @@
   environment.systemPackages = [ pkgs.powertop ];
   powerManagement.powertop.enable = true;
 
-  services.logind = {
+  services.logind.settings.Login = {
     lidSwitch = "suspend-then-hibernate";
     extraConfig = ''
       IdleAction=suspend-then-hibernate

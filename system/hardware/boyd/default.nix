@@ -8,7 +8,10 @@
     # inputs.fw-fanctrl.nixosModules.default
   ];
 
-  boot.initrd.luks.devices."nixos".allowDiscards = true;
+  boot.initrd.luks.devices."nixos" = {
+    allowDiscards = true;
+    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
+  };
 
   swapDevices = [
     { device = "/.swapvol/swapfile";

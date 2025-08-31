@@ -107,5 +107,5 @@ Then you can add the [system/hardware/common/secure-boot.nix](system/hardware/co
 ### Enabling tpm2 auto-unlock of LUKS partition
 
 ```
-systemd-cryptenroll /dev/nvme0n1p2 --wipe-slot=tpm2 --tpm2-device=auto
+systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/<root-partition>
 ```

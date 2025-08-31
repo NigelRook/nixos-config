@@ -18,6 +18,7 @@
     ptyxis
     blanket
     rewaita
+    nodejs_latest
     nodePackages.sass
   ]) ++ (with pkgs.gnomeExtensions; [
     hibernate-status-button

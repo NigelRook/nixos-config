@@ -99,6 +99,7 @@
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss
+    net-tools
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

@@ -14,7 +14,7 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+    { device = "/dev/mapper/nixos";
       fsType = "btrfs";
       options = [ "subvol=root" ];
     };
@@ -22,31 +22,31 @@
   boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/638a5d45-f95d-4957-b127-0a97cb738596";
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+    { device = "/dev/mapper/nixos";
       fsType = "btrfs";
       options = [ "subvol=home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+    { device = "/dev/mapper/nixos";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+    { device = "/dev/mapper/nixos";
       fsType = "btrfs";
       options = [ "subvol=log" ];
     };
 
   fileSystems."/.snapshots" =
-    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+    { device = "/dev/mapper/nixos";
       fsType = "btrfs";
       options = [ "subvol=snapshots" ];
     };
 
   fileSystems."/.swapvol" =
-    { device = "/dev/disk/by-uuid/99e77bca-d46a-41ab-bbb6-1f0589361a2c";
+    { device = "/dev/mapper/nixos";
       fsType = "btrfs";
       options = [ "subvol=swap" ];
     };

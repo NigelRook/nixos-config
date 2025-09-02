@@ -17,7 +17,15 @@
     dconf-editor
     ptyxis
     blanket
-    rewaita
+    (rewaita.overrideAttrs (finalAttrs: prevAttrs: {
+      version = "1.0.7";
+      src = fetchFromGitHub {
+        owner = "SwordPuffin";
+        repo = "Rewaita";
+        tag = "v1.0.7";
+        hash = "sha256-adSXq+DFw3IQxNuUkP1FcKlIh9h4Zb0tJKswYs3S92E=";
+      };
+    }))
     nodejs_latest
     nodePackages.sass
   ]) ++ (with pkgs.gnomeExtensions; [

@@ -26,6 +26,7 @@
         hash = "sha256-adSXq+DFw3IQxNuUkP1FcKlIh9h4Zb0tJKswYs3S92E=";
       };
     }))
+    adw-gtk3
     nodejs_latest
     nodePackages.sass
   ]) ++ (with pkgs.gnomeExtensions; [

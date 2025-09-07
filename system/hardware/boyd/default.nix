@@ -65,9 +65,6 @@
   # Edit fan curve
   hardware.fw-fanctrl = {
     enable = true;
-    package = pkgs.fw-fanctrl.overrideAttrs (finalAttrs: prevAttrs: {
-      patches = (prevAttrs.patches or []) ++ [ ./fw-fanctrl.patch ];
-    });
     config = {
       defaultStrategy = "high";
       strategies = {

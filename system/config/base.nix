@@ -99,6 +99,7 @@
     # for secure boot + tpm unlock
     sbctl
     tpm2-tss
+    host
     net-tools
   ];
 

@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 {
   users.users.nigel-gnome = {
     isNormalUser = true;
@@ -46,7 +46,17 @@
         settings = with lib.gvariant; {
           "org/gnome/mutter" = {
             dynamic-workspaces = true;
-            experimental-features = ["variable-refresh-rate"];
+            experimental-features = ["scale-monitor-framebuffer" "kms-modifiers" "variable-refresh-rate"];
+          };
+
+          "org/gnome/system/location" = {
+            enabled = true;
+          };
+
+          "org/gnome/settings-daemon/plugins/power" = {
+            ambient-enabled = false;
+            idle-brightness = mkInt32 100;
+            idle-dim = false;
           };
 
           "org/gnome/Console" = {
@@ -90,9 +100,22 @@
             ];
           };
 
+          "org/gnome/desktop/peripherals/touchpad" = {
+            tap-to-click = false;
+            two-finger-scrolling-enabled = true;
+          };
+
           "org/gnome/shell/extensions/hibernate-status-button" = {
             show-hybrid-sleep = false;
             show-suspend-then-hibernate = false;
+          };
+
+          "org/gnome/shell/extensions/gsconnect" = {
+            name = config.networking.hostName;
+          };
+
+          "org/gnome/shell/extensions/nightthemeswitcher/time" = {
+            manual-schedule = false;
           };
         };
       }];

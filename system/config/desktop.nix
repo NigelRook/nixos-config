@@ -46,6 +46,7 @@
   programs.coolercontrol.enable = true;
 
   environment.systemPackages = with pkgs; [
+    bitwarden
     discord
   ];
 }

@@ -49,10 +49,6 @@
           };
       in
       builtins.mapAttrs configDef {
-        "nigel@helmut" = [
-          ./config/dev.nix
-          ./config/gaming.nix
-        ];
         "nigel@boyd" = [
           ./config/dev.nix
           ./config/gaming.nix

@@ -13,7 +13,7 @@
   # Automatic garbage collection
   nix.gc = {
     automatic = true;
-    dates = "Sat *-*-* 22:00:00";
+    dates = lib.mkDefault "Sat *-*-* 08:00:00";
     persistent = true;
     options = "--delete-older-than 30d";
   };

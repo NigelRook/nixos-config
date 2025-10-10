@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  nix.gc.dates = "Sat *-*-* 22:00:00";
+
   environment.systemPackages = [ pkgs.powertop ];
   powerManagement.powertop.enable = true;
 

@@ -4,11 +4,14 @@
 
   boot.initrd.kernelModules = [ "i915" ];
 
-  hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-    intel-compute-runtime
-    vpl-gpu-rt
-  ];
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-compute-runtime
+      vpl-gpu-rt
+    ];
+  };
 
   hardware.graphics.extraPackages32 = [ pkgs.intel-media-driver-32 ];
 }

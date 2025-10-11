@@ -104,7 +104,6 @@
     cifs-utils
   ];
 
-  programs.bash.blesh.enable = true;
   programs.starship.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

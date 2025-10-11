@@ -101,6 +101,7 @@
     tpm2-tss
     host
     net-tools
+    cifs-utils
   ];
 
   programs.starship.enable = true;

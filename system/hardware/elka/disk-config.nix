@@ -69,4 +69,9 @@
   fileSystems."/nix".options = [ "noatime" "nodiratime" ];
 
   fileSystems."/var/log".options = [ "noatime" "nodiratime" ];
+
+  boot.initrd.luks.devices."nixos" = {
+    allowDiscards = true;
+    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
+  };
 }

@@ -10,18 +10,22 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # fw-fanctrl = {
     #   url = "github:TamtamHero/fw-fanctrl/packaging/nix";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
   };
 
-  outputs = { nixpkgs, nixos-hardware, lanzaboote, ... }@inputs: {
+  outputs = { nixpkgs, nixos-hardware, lanzaboote, disko, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations = let
       systemDef = hostName: hostModules: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit lanzaboote nixos-hardware inputs; };
+        specialArgs = { inherit lanzaboote nixos-hardware disko inputs; };
         modules =
         [
           { networking.hostName = hostName; }
@@ -32,6 +36,10 @@
     in
     builtins.mapAttrs systemDef {
       boyd = [ ./archetypes/personal-laptop.nix ];
+      elka = [
+        disko.nixosModules.disko
+        ./archetypes/server.nix
+      ];
     };
   };
 }

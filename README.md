@@ -109,3 +109,19 @@ Then you can add the [system/hardware/common/secure-boot.nix](system/hardware/co
 ```
 systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/<root-partition>
 ```
+
+## nixos-anywhere remote install
+
+Boot the target machine with a nixos live iso. Set a root password using `sudo passwd`
+
+On source machine, run `export SSHPASS=<target machine password>`
+
+Then run
+
+```bash
+targethost=<target-host>
+nix run github:nix-community/nixos-anywhere -- \
+  --flake ./system#$targethost$ \
+  --generate-hardware-config nixos-generate-config ./system/hardware/$targethost$/hardware-configuration.nix \
+  --target-host root@<target-ip> --env-password
+```

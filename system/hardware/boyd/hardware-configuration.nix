@@ -13,52 +13,6 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/mapper/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=root" ];
-    };
-
-  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/638a5d45-f95d-4957-b127-0a97cb738596";
-
-  fileSystems."/home" =
-    { device = "/dev/mapper/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/mapper/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
-
-  fileSystems."/var/log" =
-    { device = "/dev/mapper/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=log" ];
-    };
-
-  fileSystems."/.snapshots" =
-    { device = "/dev/mapper/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=snapshots" ];
-    };
-
-  fileSystems."/.swapvol" =
-    { device = "/dev/mapper/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=swap" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/D8F8-656D";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  swapDevices = [ ];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

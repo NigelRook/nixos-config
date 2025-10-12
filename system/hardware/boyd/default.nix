@@ -1,21 +1,10 @@
 { nixos-hardware, pkgs, ... }:
 {
   imports = [
+    ./disk-config.nix
     ./hardware-configuration.nix
     ../common/secure-boot.nix
-    ../common/btrfs-attrs.nix
     nixos-hardware.nixosModules.framework-13-7040-amd
-  ];
-
-  boot.initrd.luks.devices."nixos" = {
-    allowDiscards = true;
-    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
-  };
-
-  swapDevices = [
-    { device = "/.swapvol/swapfile";
-      size = 32*1024;
-    }
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_16;

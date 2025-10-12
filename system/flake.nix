@@ -24,6 +24,7 @@
         modules =
         [
           { networking.hostName = hostName; }
+          disko.nixosModules.disko
           ./hardware/${hostName}
           ./config/base.nix
         ] ++ hostModules;
@@ -31,10 +32,7 @@
     in
     builtins.mapAttrs systemDef {
       boyd = [ ./archetypes/personal-laptop.nix ];
-      elka = [
-        disko.nixosModules.disko
-        ./archetypes/server.nix
-      ];
+      elka = [ ./archetypes/server.nix ];
     };
   };
 }

@@ -26,29 +26,30 @@
                 name = "nixos";
                 settings = {
                   allowDiscards = true;
+                  crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
                 };
                 content = {
                   type = "btrfs";
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = [ "noatime" ];
+                      mountOptions = [ "noatime" "nodiratime" ];
                     };
                     "/home" = {
                       mountpoint = "/home";
-                      mountOptions = [ "noatime" ];
+                      mountOptions = [ "noatime" "nodiratime" ];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "noatime" ];
+                      mountOptions = [ "noatime" "nodiratime" ];
                     };
                     "/log" = {
                       mountpoint = "/var/log";
-                      mountOptions = [ "noatime" ];
+                      mountOptions = [ "noatime" "nodiratime" ];
                     };
                     "/snapshots" = {
                       mountpoint = "/.snapshots";
-                      mountOptions = [ "noatime" ];
+                      mountOptions = [ "noatime" "nodiratime" ];
                     };
                   };
                 };
@@ -58,20 +59,5 @@
         };
       };
     };
-  };
-
-  fileSystems."/".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/.snapshots".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/home".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/nix".options = [ "noatime" "nodiratime" ];
-
-  fileSystems."/var/log".options = [ "noatime" "nodiratime" ];
-
-  boot.initrd.luks.devices."nixos" = {
-    allowDiscards = true;
-    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
   };
 }

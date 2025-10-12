@@ -7,8 +7,6 @@
     nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_16;
-
   boot.kernelParams = [
     "zswap.enabled=1"
   ];

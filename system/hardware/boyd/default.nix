@@ -15,21 +15,7 @@
 
   boot.plymouth.enable = true;
 
-  #services.xserver.videoDrivers = [ "amdgpu" ];
-
-  hardware.graphics.extraPackages = with pkgs; [
-    amdvlk
-  ];
-  hardware.graphics.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
-
   services.fwupd.enable = true;
-
-  hardware.amdgpu.amdvlk = {
-    enable = true;
-    support32Bit.enable = true;
-  };
 
   boot.loader.systemd-boot = {
     consoleMode = "5";

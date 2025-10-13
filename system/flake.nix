@@ -13,9 +13,13 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixos-hardware, lanzaboote, disko, ... }@inputs: {
+  outputs = { self, nixpkgs, deploy-rs, nixos-hardware, lanzaboote, disko, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations = let
       systemDef = hostName: hostModules: nixpkgs.lib.nixosSystem {
@@ -34,5 +38,32 @@
       boyd = [ ./archetypes/personal-laptop.nix ];
       elka = [ ./archetypes/server.nix ];
     };
+
+    deploy = let
+      system = "x86_64-linux";
+      # Unmodified nixpkgs
+      pkgs = import nixpkgs { inherit system; };
+      # nixpkgs with deploy-rs overlay but force the nixpkgs package
+      deployPkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          deploy-rs.overlay # or deploy-rs.overlays.default
+          (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+        ];
+      };
+    in {
+      nodes.elka = {
+        hostname = "elka";
+        profiles.system = {
+          sshUser = "nigel";
+          user = "root";
+          interactiveSudo = true;
+          path = deployPkgs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.elka;
+        };
+      };
+    };
+
+    # This is highly advised, and will prevent many possible mistakes
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }

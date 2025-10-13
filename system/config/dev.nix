@@ -4,6 +4,7 @@
     vscode
     nixd
     nix-diff
+    deploy-rs
   ];
   virtualisation.libvirtd = {
     enable = true;

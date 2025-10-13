@@ -5,7 +5,10 @@
 { pkgs, lib, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    trusted-users = [ "@wheel" ];
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

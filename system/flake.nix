@@ -47,7 +47,7 @@
       deployPkgs = import nixpkgs {
         inherit system;
         overlays = [
-          deploy-rs.overlay # or deploy-rs.overlays.default
+          deploy-rs.overlays.default
           (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
         ];
       };
@@ -58,7 +58,7 @@
           sshUser = "nigel";
           user = "root";
           interactiveSudo = true;
-          path = deployPkgs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.elka;
+          path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.elka;
         };
       };
     };

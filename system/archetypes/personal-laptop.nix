@@ -2,7 +2,7 @@
   imports = [
     ../config/laptop.nix
     ../config/desktop.nix
-    ../config/gnome.nix
+    ../config/niri.nix
     ../config/gaming.nix
     ../config/dev.nix
   ];

@@ -35,16 +35,36 @@
   #   };
   # };
 
+  fonts.packages = with pkgs; [
+    inter
+    fira-code
+    nerd-fonts.fira-code
+  ];
+
   environment.systemPackages = with pkgs; [
-    inputs.noctalia.packages.${system}.default
     ptyxis
-    # fuzzel
     swaylock
-    # swaybg
-    # mako
-    # waybar
     blanket
     xwayland-satellite
+    adwaita-icon-theme
+
+    inputs.quickshell.packages.${system}.quickshell
+    inputs.dankMaterialShell.packages.${system}.default
+    material-symbols
+
+    ddcutil
+    libsForQt5.qt5ct
+    kdePackages.qt6ct
+    inputs.dms-cli.packages.${system}.dms-cli
+    inputs.dgop.packages.${system}.dgop
+    cliphist
+    wl-clipboard
+    brightnessctl
+    hyprpicker
+    matugen
+    cava#
+    kdePackages.qtmultimedia
+    adw-gtk3
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

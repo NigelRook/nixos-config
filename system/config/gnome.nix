@@ -17,6 +17,7 @@
     gsconnect
     caffeine
     night-theme-switcher
+    paperwm
   ]);
 
   environment.gnome.excludePackages = with pkgs; [

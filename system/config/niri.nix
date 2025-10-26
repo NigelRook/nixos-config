@@ -1,6 +1,16 @@
 { lib, pkgs, inputs, ... }:
 {
-  services.displayManager.gdm.enable = true;
+  imports = [
+    inputs.dankMaterialShell.nixosModules.greeter
+  ];
+
+  programs.dankMaterialShell.greeter = {
+    enable = true;
+    compositor.name = "niri";
+    configHome = "/home/nigel"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
+  };
+
+  services.upower.enable = true;
 
   programs.niri.enable = true;
 
@@ -65,7 +75,14 @@
     cava#
     kdePackages.qtmultimedia
     adw-gtk3
+
+    nautilus
+
+    dconf-editor
   ];
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    DMS_DISABLE_MATUGEN = "1";
+  };
 }

@@ -5,6 +5,7 @@
     nixd
     nix-diff
     deploy-rs
+    kubectl
   ];
   virtualisation.libvirtd = {
     enable = true;

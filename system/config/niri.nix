@@ -4,6 +4,15 @@
     inputs.dankMaterialShell.nixosModules.greeter
   ];
 
+  nixpkgs.overlays = [
+    inputs.quickshell.overlays.default
+    (final: prev: {
+      dms-cli = inputs.dms-cli.packages.${prev.system}.default;
+      dgop = inputs.dgop.packages.${prev.system}.default;
+      dankMaterialShell = inputs.dankMaterialShell.packages.${prev.system}.default;
+    })
+  ];
+
   programs.dankMaterialShell.greeter = {
     enable = true;
     compositor.name = "niri";
@@ -18,32 +27,53 @@
   security.pam.services.swaylock = {};
   services.gnome.gnome-keyring.enable = true; # secret service
 
-  security.pam.services.login.fprintAuth = lib.mkForce true;
-  # systemd.user.services.swaybg = {
-  #   enable = true;
+  security.pam.services.login.fprintAuth = true;
 
-  #   partOf = "graphical-session.target";
-  #   after = "graphical-session.target";
-  #   requisite = [ "graphical-session.target" "niri.service" ];
+  # systemd.user.services.hyperpolkitagent.enable = true;
 
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.swaybg}/bin/swaybg -m fill -i ${../files/wallpaper.png}";
-  #     Restart = "on-failure";
-  #   };
-  # };
+  systemd.user.services.dms = {
+    enable = true;
 
-  # systemd.user.services.swayidle = {
-  #   enable = true;
+    partOf = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    requisite = ["niri.service"];
 
-  #   partOf = "graphical-session.target";
-  #   after = "graphical-session.target";
-  #   requisite = [ "graphical-session.target" "niri.service" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.dms-cli}/bin/dms run";
+      Restart = "on-failure";
+    };
 
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.swaybg}/bin/swayidle -w timeout 601 'niri msg action power-off-monitors' timeout 600 'swaylock -f' before-sleep 'swaylock -f'";
-  #     Restart = "on-failure";
-  #   };
-  # };
+    environment = {
+      PATH = lib.mkForce null;
+    };
+  };
+
+  systemd.user.services.wl-paste = {
+    enable = true;
+
+    partOf = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+    };
+  };
+
+  systemd.user.services.wluma = {
+    enable = true;
+
+    partOf = ["graphical-session.target"];
+    after = ["graphical-session.target"];
+    wantedBy = ["graphical-session.target"];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.wluma}/bin/wluma";
+      Restart = "on-failure";
+    };
+  };
 
   fonts.packages = with pkgs; [
     inter
@@ -52,34 +82,41 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    ptyxis
-    swaylock
-    blanket
+    quickshell
+    dms-cli
+    dgop
+    dankMaterialShell
+
     xwayland-satellite
-    adwaita-icon-theme
-
-    inputs.quickshell.packages.${system}.quickshell
-    inputs.dankMaterialShell.packages.${system}.default
-    material-symbols
-
+    brightnessctl
     ddcutil
-    libsForQt5.qt5ct
-    kdePackages.qt6ct
-    inputs.dms-cli.packages.${system}.dms-cli
-    inputs.dgop.packages.${system}.dgop
     cliphist
     wl-clipboard
-    brightnessctl
+    mate.mate-polkit
+    wluma
     hyprpicker
-    matugen
     cava#
     kdePackages.qtmultimedia
     adw-gtk3
-
-    nautilus
+    adwaita-icon-theme
+    material-symbols
+    libsForQt5.qt5ct
+    kdePackages.qt6ct
+    matugen
 
     dconf-editor
+    nautilus
+    ptyxis
+    blanket
   ];
+
+  # wluma udev
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness"
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
+    ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/leds/%k/brightness"
+    ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
+  '';
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";

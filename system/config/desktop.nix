@@ -49,7 +49,7 @@
 
   environment.systemPackages = with pkgs; [
     brave
-    bitwarden
+    bitwarden-desktop
     discord
   ];
 }

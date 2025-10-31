@@ -8,6 +8,7 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "@wheel" ];
+    download-buffer-size = 524288000;
   };
 
   # Allow unfree packages

@@ -4,7 +4,7 @@ Configuration files for setting up NixOS
 
 ## Partitioning
 
-[disko/](disko/) contains partitioning information. To apply it, run:
+Each system has a disk-config.nix under `system/hardware/<host>/` containing a disko configuration. For a new system, createTo apply this, run:
 
 ```
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko/<host>.nix
@@ -17,7 +17,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 Generate default configuration.nix with
 
 ```
-sudo nixos-generate-config --root /mnt
+sudo nixos-generate-config --no-filesystems --root /mnt
 ```
 
 Copy hardware-configuration.nix to `system/hardware/<host>`

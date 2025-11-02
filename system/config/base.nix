@@ -105,6 +105,7 @@
     tpm2-tss
     host
     net-tools
+    dig
     cifs-utils
   ];
 

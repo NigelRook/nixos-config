@@ -1,0 +1,18 @@
+keys:
+  - &admin_nigel age1fxm6mx7zu5ygvxcqxq7aru4teht4eck7v5gln922jfyn7wx29gaszzp654
+  - &machine_boyd_ssh age1cq5u8tu7cmxvupg0nhz6d4vsfalnfw8hsasd2ynxu9j2yrzdsufsmwleet
+  - &machine_boyd age15fxzw0gmzraxcq096u9ru40jdnl6san2j4wvpvghymda4t8casfqk5fkh5
+  - &server_elka age1ttgudc0yzf4nxqratye00hamvgwjgchxkflpeu33zfrdr2z50utqlrx66d
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *admin_nigel
+      - *machine_boyd_ssh
+      - *server_elka
+      - *machine_boyd
+  - path_regex: secrets/elka/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *admin_nigel
+      - *server_elka

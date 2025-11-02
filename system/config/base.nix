@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   nix.settings = {
@@ -23,6 +23,20 @@
   };
 
   nix.settings.auto-optimise-store = true;
+
+  # Sops
+
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = lib.mkDefault "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+    secrets = {
+      "users/nigel/hashed-password" = { neededForUsers = true; };
+    };
+  };
 
   # Bootloader.
   boot.loader.timeout = 2;
@@ -89,6 +103,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    age
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
     wget
@@ -116,7 +131,7 @@
     isNormalUser = true;
     description = "Nigel Rook";
     extraGroups = [ "networkmanager" "wheel" ];
-    initialPassword = "changeme";
+    hashedPasswordFile = config.sops.secrets."users/nigel/hashed-password".path;
   };
 
   # This value determines the NixOS release from which the default

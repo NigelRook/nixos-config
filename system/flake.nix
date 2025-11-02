@@ -4,6 +4,10 @@
   inputs = {
     # NixOS official package source, using the nixos-unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
@@ -53,6 +57,7 @@
         [
           { networking.hostName = hostName; }
           disko.nixosModules.disko
+          inputs.sops-nix.nixosModules.sops
           ./hardware/${hostName}
           ./config/base.nix
         ] ++ hostModules;

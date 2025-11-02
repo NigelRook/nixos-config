@@ -53,6 +53,12 @@ If you don't want to commit changes yet (you probably don't have suitable creden
 
 ### Installing NixOS
 
+Bootstrapping using nixos-install is untested since adding sops-nix. You'll certainly need the admin_nigel private key. Things to explore:
+- Maybe exporting `SOPS_AGE_KEY_FILE` helps. Unlikely though, since everything's supposed to be sandboxed and I suspect activating happens after a chroot
+- More likely you have to put it somewhere under /mnt after disko does its thing, then add a temporary `sops.age.keyFile = lib.mkForce "<path to admin_nigel>"`
+- Maybe it's possible to nix-build on the install media then `nixos-install --system result`. See nixos-install --help for hints
+
+
 ```
 sudo nixos-install --flake ./system#<host>
 ```

@@ -4,37 +4,53 @@ Configuration files for setting up NixOS
 
 ## Partitioning
 
-Each system has a disk-config.nix under `system/hardware/<host>/` containing a disko configuration. For a new system, createTo apply this, run:
+Each system has a `disk-config.nix` under `system/hardware/<host>/` containing a disko configuration. For a new system, createTo apply this, run:
 
 ```
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko/<host>.nix
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko system/hardware/<host>/disk-config.nix
 ```
 
 ## Installing
 
-### Creating config for a new host
+For live ISO installs, boot the live ISO and clone this repo.
 
-Generate default configuration.nix with
+For remote installs, changes can be made to this repo on the local machine
+
+### disko config
+
+If the machine doesn't have one, craft a suitable disko config at `system/hardware/MACHINE_NAME/disk-config.nix`
+
+### Partitioning (live ISO only)
 
 ```
-sudo nixos-generate-config --no-filesystems --root /mnt
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko system/hardware/MACHINE_NAME/disk-config.nix
 ```
 
-Copy hardware-configuration.nix to `system/hardware/<host>`
+### Base config
 
-Create `system/hardware/<host>/default.nix` with
+If you don't already have a configuration for the system, create `system/hardware/MACHINE_NAME/default.nix`
 
 ```
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./disk-config.nix
+    ./hardware-configuration.nix
+    ../common/bootstrap-sops.nix
+  ];
 }
 ```
 
-And add any other host-specific configuration and imports to this file
+Add any additional machine-specific config in here
 
-`git add` newly created files. Optionally commit them
+### hardware-configuration.nix (live ISO only)
 
-Finally, add an entry to [system/flake.nix](system/flake.nix)
+```
+sudo nixos-generate-config --show-hardware-config --no-filesystems --root /mnt > system/hardware/<host>/hardware-configuration.nix
+```
+
+### Flake entry
+
+If one doesn't already exist, add an entry to [flake.nix](system/flake.nix)
 
 ```
   outputs = {  ... }@inputs: {
@@ -44,28 +60,93 @@ Finally, add an entry to [system/flake.nix](system/flake.nix)
     in
     builtins.mapAttrs systemDef {
       ...
-      host = [ modules ]
+      MACHINE_NAME = [ MODULES ]
     };
   };
 ```
 
-If you don't want to commit changes yet (you probably don't have suitable credentials), copy them somewhere under `/mnt`
+### deplyy-rs profile (remote only)
 
-### Installing NixOS
+If one doesn't already exist, add an entry to [flake.nix](system/flake.nix)
 
-Bootstrapping using nixos-install is untested since adding sops-nix. You'll certainly need the admin_nigel private key. Things to explore:
-- Maybe exporting `SOPS_AGE_KEY_FILE` helps. Unlikely though, since everything's supposed to be sandboxed and I suspect activating happens after a chroot
-- More likely you have to put it somewhere under /mnt after disko does its thing, then add a temporary `sops.age.keyFile = lib.mkForce "<path to admin_nigel>"`
-- Maybe it's possible to nix-build on the install media then `nixos-install --system result`. See nixos-install --help for hints
+```
+  deploy = ...
+    ...
+      nodes.MACHINE_NAME = {
+        hostname = "MACHINE_NAME";
+        profiles.system = {
+          sshUser = "nigel";
+          user = "root";
+          interactiveSudo = true;
+          path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.MACHINE_NAME;
+        };
+      };
+```
 
+### Temporary sops key (live ISO)
+
+```
+sudo mkdir -p /mnt/tmp/sops
+sudo mount -t tmpfs -o size=1m sops /mnt/tmp/sops
+```
+
+Create `/mnt/tmp/sops/key.txt` containing the required key
+
+### Temporary sops key (remote)
+
+```
+temp=$(mktemp -d)
+mkdir -p $temp/tmp/sops/
+```
+
+Create `$temp/tmp/sops/key.txt` containing the required key
+
+### Store repo changes
+
+For remote, this is just adding and committing your changes
+
+For live ISO, you'll need to at least `git add` new files (required by flakes). You may want to copy the git repo over to `/mnt/home/nigel` and push from the new system rather than signing in to git from the live ISO.
+
+### Install (live ISO)
 
 ```
 sudo nixos-install --flake ./system#<host>
 ```
 
-Commit and merge changes
+### Install (remote)
+
+Boot the target machine with a nixos live iso. Set a root password using `sudo passwd`
+
+On local machine, run `export SSHPASS=<target machine password>`
+
+Then run
+
+```bash
+targethost=MACHINE_NAME
+targetip=TARGET_IP
+nix run github:nix-community/nixos-anywhere -- \
+  --flake ./system#${targethost} \
+  --generate-hardware-config nixos-generate-config ./system/hardware${targethost}/hardware-configuration.nix \
+  --extra-files=${temp} \
+  --env-password \
+  --target-host root@${targetip}$
+```
 
 ## After install
+
+### Add sops key
+
+From the running system, get the age public key with
+
+```
+nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
+```
+
+Add this to [.sops.yaml](system/.sops.yaml), then update the secrets file with
+
+```
+sops updatekeys system/secrets/secrets.yaml
+```
 
 ### Configuring home-manager
 

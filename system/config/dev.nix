@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     sops
@@ -19,5 +19,13 @@
   programs.virt-manager.enable = true;
   users.users.nigel = {
     extraGroups = [ "libvirtd" ];
+  };
+
+  sops.secrets."users/nigel/admin-key" = {
+    owner = "nigel";
+  };
+
+  home-manager.users.nigel.home = {
+    sessionVariables.SOPS_AGE_KEY_FILE = config.sops.secrets."users/nigel/admin-key".path;
   };
 }

@@ -27,6 +27,10 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     quickshell = {
       url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +62,7 @@
           { networking.hostName = hostName; }
           disko.nixosModules.disko
           inputs.sops-nix.nixosModules.sops
+          inputs.home-manager.nixosModules.default
           ./hardware/${hostName}
           ./config/base.nix
         ] ++ hostModules;

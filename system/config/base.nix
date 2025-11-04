@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 {
   nix.settings = {
@@ -28,15 +28,16 @@
 
   sops = {
     defaultSopsFile = ../secrets/secrets.yaml;
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = lib.mkDefault "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets = {
       "users/nigel/hashed-password" = { neededForUsers = true; };
     };
   };
+
+  # NixOS system-wide home-manager configuration
+  home-manager.sharedModules = [
+    inputs.sops-nix.homeManagerModules.sops
+  ];
 
   # Bootloader.
   boot.loader.timeout = 2;
@@ -132,6 +133,11 @@
     description = "Nigel Rook";
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPasswordFile = config.sops.secrets."users/nigel/hashed-password".path;
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    users.nigel.home.stateVersion = config.system.stateVersion;
   };
 
   # This value determines the NixOS release from which the default

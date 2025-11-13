@@ -48,7 +48,13 @@
   programs.chromium.enable = true;
 
   environment.systemPackages = with pkgs; [
-    brave
+    (brave.override {
+      commandLineArgs = [
+        "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL"
+        "--ignore-gpu-blocklist"
+        "--enable-zero-copy"
+      ];
+    })
     bitwarden-desktop
     discord
   ];

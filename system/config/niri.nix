@@ -7,9 +7,9 @@
   nixpkgs.overlays = [
     inputs.quickshell.overlays.default
     (final: prev: {
-      dms-cli = inputs.dms-cli.packages.${prev.system}.default;
-      dgop = inputs.dgop.packages.${prev.system}.default;
-      dankMaterialShell = inputs.dankMaterialShell.packages.${prev.system}.default;
+      dgop = inputs.dgop.packages.${prev.stdenv.hostPlatform.system}.default;
+      dmsCli = inputs.dankMaterialShell.packages.${prev.stdenv.hostPlatform.system}.dmsCli;
+      dankMaterialShell = inputs.dankMaterialShell.packages.${prev.stdenv.hostPlatform.system}.dankMaterialShell;
     })
   ];
 
@@ -40,7 +40,7 @@
     requisite = ["niri.service"];
 
     serviceConfig = {
-      ExecStart = "${pkgs.dms-cli}/bin/dms run";
+      ExecStart = "${pkgs.dmsCli}/bin/dms run --session";
       Restart = "on-failure";
     };
 
@@ -83,8 +83,8 @@
 
   environment.systemPackages = with pkgs; [
     quickshell
-    dms-cli
     dgop
+    dmsCli
     dankMaterialShell
 
     xwayland-satellite

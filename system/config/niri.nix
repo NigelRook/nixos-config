@@ -20,6 +20,7 @@
   };
 
   services.upower.enable = true;
+  services.gvfs.enable = true;
 
   programs.niri.enable = true;
 

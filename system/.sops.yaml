@@ -1,7 +1,7 @@
 keys:
   - &admin_nigel age1fxm6mx7zu5ygvxcqxq7aru4teht4eck7v5gln922jfyn7wx29gaszzp654
   - &machine_boyd age1cq5u8tu7cmxvupg0nhz6d4vsfalnfw8hsasd2ynxu9j2yrzdsufsmwleet
-  - &machine_elka age1ttgudc0yzf4nxqratye00hamvgwjgchxkflpeu33zfrdr2z50utqlrx66d
+  - &machine_elka age1s3kxpfxfwv92ldvxwlfz28gahancmj3v3d70g20ky372euaqzd8s0ne3hc
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:

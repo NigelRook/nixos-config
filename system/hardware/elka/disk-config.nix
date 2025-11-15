@@ -3,7 +3,7 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        device = "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA250218N4102409641";
         content = {
           type = "gpt";
           partitions = {
@@ -29,29 +29,10 @@
                   crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
                 };
                 content = {
-                  type = "btrfs";
-                  subvolumes = {
-                    "/root" = {
-                      mountpoint = "/";
-                      mountOptions = [ "noatime" "nodiratime" ];
-                    };
-                    "/home" = {
-                      mountpoint = "/home";
-                      mountOptions = [ "noatime" "nodiratime" ];
-                    };
-                    "/nix" = {
-                      mountpoint = "/nix";
-                      mountOptions = [ "noatime" "nodiratime" ];
-                    };
-                    "/log" = {
-                      mountpoint = "/var/log";
-                      mountOptions = [ "noatime" "nodiratime" ];
-                    };
-                    "/snapshots" = {
-                      mountpoint = "/.snapshots";
-                      mountOptions = [ "noatime" "nodiratime" ];
-                    };
-                  };
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/";
+                  mountOptions = [ "noatime" "nodiratime" ];
                 };
               };
             };

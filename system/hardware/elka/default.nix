@@ -4,6 +4,6 @@
     ./hardware-configuration.nix
     ../common/secure-boot.nix
     ./alder-lake-n.nix
-    ./master-vm.nix
+    ../../config/kubernetes-resources.nix
   ];
 }

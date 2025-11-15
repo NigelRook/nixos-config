@@ -126,15 +126,21 @@ targethost=MACHINE_NAME
 targetip=TARGET_IP
 nix run github:nix-community/nixos-anywhere -- \
   --flake ./system#${targethost} \
-  --generate-hardware-config nixos-generate-config ./system/hardware${targethost}/hardware-configuration.nix \
-  --extra-files=${temp} \
+  --generate-hardware-config nixos-generate-config ./system/hardware/${targethost}/hardware-configuration.nix \
+  --extra-files ${temp} \
   --env-password \
-  --target-host root@${targetip}$
+  --target-host root@${targetip}
 ```
 
 ## After install
 
 ### Add sops key
+
+Remove any lingering admin key
+
+```
+sudo rm -rf /tmp/sops
+```
 
 From the running system, get the age public key with
 
@@ -145,7 +151,8 @@ nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-ag
 Add this to [.sops.yaml](system/.sops.yaml), then update the secrets file with
 
 ```
-sops updatekeys system/secrets/secrets.yaml
+cd system
+sops updatekeys secrets/secrets.yaml
 ```
 
 ### Configuring home-manager
@@ -194,21 +201,5 @@ Then you can add the [system/hardware/common/secure-boot.nix](system/hardware/co
 ### Enabling tpm2 auto-unlock of LUKS partition
 
 ```
-systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/<root-partition>
-```
-
-## nixos-anywhere remote install
-
-Boot the target machine with a nixos live iso. Set a root password using `sudo passwd`
-
-On source machine, run `export SSHPASS=<target machine password>`
-
-Then run
-
-```bash
-targethost=<target-host>
-nix run github:nix-community/nixos-anywhere -- \
-  --flake ./system#$targethost$ \
-  --generate-hardware-config nixos-generate-config ./system/hardware/$targethost$/hardware-configuration.nix \
-  --target-host root@<target-ip> --env-password
+sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs="7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" /dev/<root-partition>
 ```

@@ -12,6 +12,17 @@
       api-token: ${config.sops.placeholder."homelab/cloudflare-token-b64"}
   '';
 
+  sops.secrets."homelab/argocd-secret-data" = {};
+  sops.templates."argocd-secret.yaml".content = ''
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: argocd-secret
+      namespace: argocd
+    type: Opaque
+    ${config.sops.placeholder."homelab/argocd-secret-data"}
+  '';
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -30,6 +41,28 @@
           name = "argocd";
         };
       };
+      argocd-secret.source = config.sops.templates."argocd-secret.yaml".path;
+      argocd-apps.content = {
+        apiVersion = "argoproj.io/v1alpha1";
+        kind = "Application";
+        "metadata" = {
+          name = "apps";
+          namespace = "argocd";
+          finalizers = [ "resources-finalizer.argocd.argoproj.io" ];
+        };
+        spec = {
+          destination = {
+            server = "https://kubernetes.default.svc";
+            namespace = "argocd";
+          };
+          project = "default";
+          source = {
+            repoURL = "https://github.com/NigelRook/argo";
+            targetRevision = "main";
+            path = "apps";
+          };
+        };
+      };
     };
 
     autoDeployCharts = {
@@ -44,6 +77,7 @@
             params = {
               "server.insecure" = true;
             };
+            secret.createSecret = false;
           };
         };
       };

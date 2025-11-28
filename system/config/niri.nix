@@ -1,17 +1,14 @@
-{ lib, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
+    inputs.dankMaterialShell.nixosModules.dankMaterialShell
     inputs.dankMaterialShell.nixosModules.greeter
   ];
 
-  nixpkgs.overlays = [
-    inputs.quickshell.overlays.default
-    (final: prev: {
-      dgop = inputs.dgop.packages.${prev.stdenv.hostPlatform.system}.default;
-      dmsCli = inputs.dankMaterialShell.packages.${prev.stdenv.hostPlatform.system}.dmsCli;
-      dankMaterialShell = inputs.dankMaterialShell.packages.${prev.stdenv.hostPlatform.system}.dankMaterialShell;
-    })
-  ];
+  programs.dankMaterialShell = {
+    enable = true;
+    systemd.enable = true;
+  };
 
   programs.dankMaterialShell.greeter = {
     enable = true;
@@ -27,28 +24,6 @@
   security.polkit.enable = true; # polkit
   security.pam.services.swaylock = {};
   services.gnome.gnome-keyring.enable = true; # secret service
-
-  security.pam.services.login.fprintAuth = true;
-
-  # systemd.user.services.hyperpolkitagent.enable = true;
-
-  systemd.user.services.dms = {
-    enable = true;
-
-    partOf = ["graphical-session.target"];
-    wantedBy = ["graphical-session.target"];
-    after = ["graphical-session.target"];
-    requisite = ["niri.service"];
-
-    serviceConfig = {
-      ExecStart = "${pkgs.dmsCli}/bin/dms run --session";
-      Restart = "on-failure";
-    };
-
-    environment = {
-      PATH = lib.mkForce null;
-    };
-  };
 
   systemd.user.services.wl-paste = {
     enable = true;
@@ -77,34 +52,15 @@
   };
 
   fonts.packages = with pkgs; [
-    inter
-    fira-code
     nerd-fonts.fira-code
   ];
 
   environment.systemPackages = with pkgs; [
-    quickshell
-    dgop
-    dmsCli
-    dankMaterialShell
-
     xwayland-satellite
-    brightnessctl
-    ddcutil
-    cliphist
-    wl-clipboard
     mate.mate-polkit
     wluma
-    hyprpicker
-    cava#
-    kdePackages.qtmultimedia
     adw-gtk3
     adwaita-icon-theme
-    material-symbols
-    libsForQt5.qt5ct
-    kdePackages.qt6ct
-    matugen
-
     dconf-editor
     nautilus
     ptyxis

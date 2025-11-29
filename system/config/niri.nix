@@ -77,6 +77,5 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    DMS_DISABLE_MATUGEN = "1";
   };
 }

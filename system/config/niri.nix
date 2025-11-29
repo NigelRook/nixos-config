@@ -5,6 +5,8 @@
     inputs.dankMaterialShell.nixosModules.greeter
   ];
 
+  nixpkgs.overlays = [ inputs.quickshell.overlays.default ];
+
   programs.dankMaterialShell = {
     enable = true;
     systemd.enable = true;

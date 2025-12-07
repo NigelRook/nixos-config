@@ -55,6 +55,7 @@
         "--enable-zero-copy"
       ];
     })
+    ungoogled-chromium
     bitwarden-desktop
     discord
   ];

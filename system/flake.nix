@@ -31,10 +31,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell/v1.0.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, deploy-rs, nixos-hardware, lanzaboote, disko, ... }@inputs: {

@@ -1,16 +1,13 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    inputs.dankMaterialShell.nixosModules.dankMaterialShell
-    inputs.dankMaterialShell.nixosModules.greeter
-  ];
+  programs.niri.enable = true;
 
-  programs.dankMaterialShell = {
+  programs.dms-shell = {
     enable = true;
     systemd.enable = true;
   };
 
-  programs.dankMaterialShell.greeter = {
+  services.displayManager.dms-greeter = {
     enable = true;
     compositor.name = "niri";
     configHome = "/home/nigel"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
@@ -18,8 +15,6 @@
 
   services.upower.enable = true;
   services.gvfs.enable = true;
-
-  programs.niri.enable = true;
 
   security.polkit.enable = true; # polkit
   security.pam.services.swaylock = {};

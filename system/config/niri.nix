@@ -39,7 +39,7 @@
   };
 
   systemd.user.services.wluma = {
-    enable = true;
+    enable = false;
 
     partOf = ["graphical-session.target"];
     after = ["graphical-session.target"];

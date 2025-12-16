@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.niri.enable = true;
 
   programs.dms-shell = {
     enable = true;
     systemd.enable = true;
+    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   services.displayManager.dms-greeter = {

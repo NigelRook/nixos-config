@@ -284,6 +284,7 @@
         "lanzaboote": "lanzaboote",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "quickshell": "quickshell",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix"
       }

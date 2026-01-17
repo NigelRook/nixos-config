@@ -21,19 +21,6 @@
   security.pam.services.swaylock = {};
   services.gnome.gnome-keyring.enable = true; # secret service
 
-  systemd.user.services.wl-paste = {
-    enable = true;
-
-    partOf = ["graphical-session.target"];
-    after = ["graphical-session.target"];
-    wantedBy = ["graphical-session.target"];
-
-    serviceConfig = {
-      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
-      Restart = "on-failure";
-    };
-  };
-
   systemd.user.services.wluma = {
     enable = false;
 

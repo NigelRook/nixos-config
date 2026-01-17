@@ -48,11 +48,16 @@
   programs.chromium.enable = true;
 
   environment.systemPackages = with pkgs; [
-    (brave.override {
+    (vivaldi.override {
       commandLineArgs = [
-        "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL"
+        "--flag-switches-begin"
         "--ignore-gpu-blocklist"
         "--enable-zero-copy"
+        "--enable-features=DefaultANGLEVulkan,Vulkan,VulkanFromANGLE"
+        "--flag-switches-end"
+        "--ozone-platform-hint=auto"
+        "--enable-wayland-ime=true"
+        "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,VaapiVideoDecoder,VaapiVideoEncoder,WaylandWindowDecorations"
       ];
     })
     ungoogled-chromium

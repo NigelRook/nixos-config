@@ -12,16 +12,10 @@
       api-token: ${config.sops.placeholder."homelab/cloudflare-token-b64"}
   '';
 
-  sops.secrets."homelab/argocd-secret-data" = {};
-  sops.templates."argocd-secret.yaml".content = ''
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: argocd-secret
-      namespace: argocd
-    type: Opaque
-    ${config.sops.placeholder."homelab/argocd-secret-data"}
-  '';
+  sops.secrets.argocd-secret = {
+    sopsFile = ../secrets/k8s/argocd-secret.yaml;
+    key = "";
+  };
 
   sops.secrets.argo-git-ssh = {
     sopsFile = ../secrets/k8s/argo-git-ssh.yaml;
@@ -46,7 +40,7 @@
           name = "argocd";
         };
       };
-      argocd-secret.source = config.sops.templates."argocd-secret.yaml".path;
+      argocd-secret.source = config.sops.secrets.argocd-secret.path;
       argo-git-ssh.source = config.sops.secrets.argo-git-ssh.path;
       argocd-apps.content = {
         apiVersion = "argoproj.io/v1alpha1";

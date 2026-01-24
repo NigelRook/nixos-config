@@ -23,6 +23,11 @@
     ${config.sops.placeholder."homelab/argocd-secret-data"}
   '';
 
+  sops.secrets.argo-git-ssh = {
+    sopsFile = ../secrets/k8s/argo-git-ssh.yaml;
+    key = "";
+  };
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -42,6 +47,7 @@
         };
       };
       argocd-secret.source = config.sops.templates."argocd-secret.yaml".path;
+      argo-git-ssh.source = config.sops.secrets.argo-git-ssh.path;
       argocd-apps.content = {
         apiVersion = "argoproj.io/v1alpha1";
         kind = "Application";
@@ -57,7 +63,7 @@
           };
           project = "default";
           source = {
-            repoURL = "https://github.com/NigelRook/argo";
+            repoURL = "git@github.com:NigelRook/argo.git";
             targetRevision = "main";
             path = "apps";
           };

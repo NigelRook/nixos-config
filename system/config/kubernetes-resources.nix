@@ -34,6 +34,16 @@
       smtp-password: ${config.sops.placeholder."homelab/smtp-password"}
   '';
 
+  sops.secrets.authelia-secrets = {
+    sopsFile = ../secrets/k8s/authelia-secrets.yaml;
+    key = "";
+  };
+
+  sops.secrets.authelia-oidc = {
+    sopsFile = ../secrets/k8s/authelia-oidc.yaml;
+    key = "";
+  };
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -84,6 +94,16 @@
         };
       };
       alert-manager-creds.source = config.sops.templates."alert-manager-creds.yaml".path;
+
+      authelia-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "authelia";
+        };
+      };
+      authelia-secrets.source = config.sops.secrets.authelia-secrets.path;
+      authelia-oidc.source = config.sops.secrets.authelia-oidc.path;
     };
 
     autoDeployCharts = {

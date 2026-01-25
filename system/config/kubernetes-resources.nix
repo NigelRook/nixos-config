@@ -22,6 +22,18 @@
     key = "";
   };
 
+  sops.secrets."homelab/smtp-password" = {};
+  sops.templates."alert-manager-creds.yaml".content = ''
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: alert-manager-creds
+      namespace: monitoring
+    type: Opaque
+    stringData:
+      smtp-password: ${config.sops.placeholder."homelab/smtp-password"}
+  '';
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -63,6 +75,15 @@
           };
         };
       };
+
+      monitoring-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "monitoring";
+        };
+      };
+      alert-manager-creds.source = config.sops.templates."alert-manager-creds.yaml".path;
     };
 
     autoDeployCharts = {

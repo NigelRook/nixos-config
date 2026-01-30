@@ -127,6 +127,7 @@ targetip=TARGET_IP
 nix run github:nix-community/nixos-anywhere -- \
   --flake ./system#${targethost} \
   --generate-hardware-config nixos-generate-config ./system/hardware/${targethost}/hardware-configuration.nix \
+  --disk-encryption-keys /run/secrets/homelab/disk-key /run/secrets/homelab/disk-key \
   --extra-files ${temp} \
   --env-password \
   --target-host root@${targetip}

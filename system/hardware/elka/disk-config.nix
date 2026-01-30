@@ -39,6 +39,30 @@
           };
         };
       };
+      hdd-1-ironwolf-18T = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-ST18000NT001-3NF101_ZVTE0RXP";
+        content = {
+          type = "gpt";
+          partitions = {
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "hdd-1-ironwolf-18T";
+                passwordFile = "/run/secrets/homelab/disk-key";
+                initrdUnlock = false;
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/srv/hdd_1_ironwolf_18T";
+                  mountOptions = [ "noatime" "nodiratime" "noauto" "nofail" ];
+                };
+              };
+            };
+          };
+        };
+      };
     };
   };
 }

@@ -12,8 +12,10 @@
       Type = "oneshot";
       RemainAfterExit = true;
       ExecStart = pkgs.writeShellScript "unlock-and-mount" ''
-      ${pkgs.cryptsetup}/bin/cryptsetup open --key-file /run/secrets/homelab/disk-key /dev/disk/by-uuid/6e3088aa-37b3-4982-aa0e-b84d256dfd4f hdd-1-ironwolf-18T
+      ${pkgs.cryptsetup}/bin/cryptsetup open --key-file /run/secrets/homelab/disk-key /dev/disk/by-partlabel/disk-hdd-1-ironwolf-18T-luks hdd-1-ironwolf-18T
       ${pkgs.systemd}/bin/systemctl start srv-hdd_1_ironwolf_18T.mount
+      ${pkgs.cryptsetup}/bin/cryptsetup open --key-file /run/secrets/homelab/disk-key /dev/disk/by-partlabel/disk-hdd-4-wdred-4T-luks hdd-4-wdred-4T
+      ${pkgs.systemd}/bin/systemctl start srv-hdd_4_wdred_4T.mount
     '';
     };
   };

@@ -68,7 +68,7 @@
         apiVersion = "argoproj.io/v1alpha1";
         kind = "Application";
         "metadata" = {
-          name = "apps";
+          name = "bootstrap";
           namespace = "argocd";
           finalizers = [ "resources-finalizer.argocd.argoproj.io" ];
         };
@@ -81,7 +81,7 @@
           source = {
             repoURL = "git@github.com:NigelRook/argo.git";
             targetRevision = "main";
-            path = "apps";
+            path = "bootstrap";
           };
         };
       };

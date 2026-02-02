@@ -8,6 +8,7 @@
     deploy-rs
     kubectl
     kubectx
+    k9s
   ];
   virtualisation.libvirtd = {
     enable = true;

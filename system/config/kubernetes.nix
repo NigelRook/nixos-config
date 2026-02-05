@@ -30,7 +30,8 @@
 
   environment.systemPackages = with pkgs; [
     util-linux
-    nfs-utils#
+    nfs-utils
+    kubectl
     kubectx
   ];
 }

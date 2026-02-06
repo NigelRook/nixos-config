@@ -2,8 +2,38 @@
 {
   services.k3s = {
     enable = true;
-    gracefulNodeShutdown.enable = true;
+    extraKubeletConfig = {
+      shutdownGracePeriodByPodPriority = [
+        {
+          priority = 2000000000;
+          shutdownGracePeriodSeconds = 15;
+        }
+        {
+          priority = 1000000000;
+          shutdownGracePeriodSeconds = 30;
+        }
+        {
+          priority = 10000000;
+          shutdownGracePeriodSeconds = 15;
+        }
+        {
+          priority = 0;
+          shutdownGracePeriodSeconds = 30;
+        }
+      ];
+    };
   };
+
+  systemd.services.k3s = {
+    after = [ "iscsid.service" ];
+    requires = [ "iscsid.service" ];
+    serviceConfig = {
+      TimeoutStopSec = 180;
+    };
+  };
+
+  # Allow kubelet to delay shutdown for longer
+  services.logind.settings.Login.InhibitDelayMaxSec = 180;
 
   services.openiscsi = {
     enable = true;

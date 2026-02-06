@@ -77,7 +77,6 @@
         profiles.system = {
           sshUser = "nigel";
           user = "root";
-          interactiveSudo = true;
           path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.elka;
         };
       };

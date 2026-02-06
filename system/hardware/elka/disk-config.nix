@@ -56,7 +56,7 @@
                   type = "filesystem";
                   format = "ext4";
                   mountpoint = "/srv/hdd_1_ironwolf_18T";
-                  mountOptions = [ "noatime" "nodiratime" "noauto" "nofail" ];
+                  mountOptions = [ "noatime" "nodiratime" "nofail" ];
                 };
               };
             };
@@ -80,7 +80,7 @@
                   type = "filesystem";
                   format = "ext4";
                   mountpoint = "/srv/hdd_4_wdred_4T";
-                  mountOptions = [ "noatime" "nodiratime" "noauto" "nofail" ];
+                  mountOptions = [ "noatime" "nodiratime" "nofail" ];
                 };
               };
             };

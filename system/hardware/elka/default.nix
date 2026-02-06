@@ -7,4 +7,9 @@
     ../../config/kubernetes-resources.nix
     ./nas.nix
   ];
+
+  boot.loader.systemd-boot = {
+    consoleMode = "2";
+    editor = false;
+  };
 }

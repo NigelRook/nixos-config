@@ -62,7 +62,7 @@
         "browseable" = "yes";
         "read only" = "yes";
         "guest ok" = "yes";
-        "write list" = "nigel";
+        "write list" = "nigel ruth";
         "create mask" = "0664";
         "directory mask" = "0775";
         "force user" = "nigel";
@@ -91,6 +91,22 @@
   system.activationScripts = {
     nigel_smbpasswd.text = ''
       /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/nigel/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/nigel/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa nigel
+    '';
+  };
+
+  users.users.ruth = {
+    isNormalUser = true;
+    description = "Ruth";
+    uid = 1001;
+    shell = pkgs.shadow + "/bin/nologin";
+    createHome = false;
+  };
+
+  sops.secrets."users/ruth/samba-password" = {};
+
+  system.activationScripts = {
+    ruth_smbpasswd.text = ''
+      /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa ruth
     '';
   };
 }

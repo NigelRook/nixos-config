@@ -134,6 +134,7 @@
   users.users.nigel = {
     isNormalUser = true;
     description = "Nigel Rook";
+    uid = 1000;
     extraGroups = [ "networkmanager" "wheel" ];
     hashedPasswordFile = config.sops.secrets."users/nigel/hashed-password".path;
   };

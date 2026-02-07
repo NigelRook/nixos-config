@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   sops.secrets."homelab/disk-key" = {
     owner = "nigel";
@@ -40,4 +40,57 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 2049 ];
+
+  services.samba = {
+    enable = true;
+    package = pkgs.samba4Full;
+    openFirewall = true;
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = config.networking.hostName;
+        "netbios name" = config.networking.hostName;
+        "security" = "user";
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "192.168.2. 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+      "media" = {
+        "path" = "/export/media";
+        "browseable" = "yes";
+        "read only" = "yes";
+        "guest ok" = "yes";
+        "write list" = "nigel";
+        "create mask" = "0664";
+        "directory mask" = "0775";
+        "force user" = "nigel";
+        "force group" = "users";
+      };
+    };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  services.avahi = {
+    publish.enable = true;
+    publish.userServices = true;
+    # ^^ Needed to allow samba to automatically register mDNS records (without the need for an `extraServiceFile`
+    nssmdns4 = true;
+    # ^^ Not one hundred percent sure if this is needed- if it aint broke, don't fix it
+    enable = true;
+    openFirewall = true;
+  };
+
+  sops.secrets."users/nigel/samba-password" = {};
+
+  system.activationScripts = {
+    nigel_smbpasswd.text = ''
+      /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/nigel/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/nigel/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa nigel
+    '';
+  };
 }

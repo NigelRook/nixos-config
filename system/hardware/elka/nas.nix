@@ -31,6 +31,11 @@
     options = [ "bind" "nofail" ];
   };
 
+  fileSystems."/export/timemachine" = {
+    device = "/srv/data/timemachine";
+    options = [ "bind" "nofail" ];
+  };
+
   services.nfs.server = {
     enable = true;
     exports = ''
@@ -68,6 +73,15 @@
         "force user" = "nigel";
         "force group" = "users";
       };
+      "timemachine" = {
+        "path" = "/export/timemachine";
+        "valid users" = "nigel ruth";
+        "public" = "no";
+        "writeable" = "yes";
+        "fruit:aapl" = "yes";
+        "fruit:time machine" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
+      };
     };
   };
 
@@ -84,6 +98,29 @@
     # ^^ Not one hundred percent sure if this is needed- if it aint broke, don't fix it
     enable = true;
     openFirewall = true;
+    extraServiceFiles = {
+      timemachine = ''
+        <?xml version="1.0" standalone='no'?>
+        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+        <service-group>
+          <name replace-wildcards="yes">%h</name>
+          <service>
+            <type>_smb._tcp</type>
+            <port>445</port>
+          </service>
+            <service>
+            <type>_device-info._tcp</type>
+            <port>0</port>
+            <txt-record>model=TimeCapsule8,119</txt-record>
+          </service>
+          <service>
+            <type>_adisk._tcp</type>
+            <txt-record>dk0=adVN=timemachine,adVF=0x82</txt-record>
+            <txt-record>sys=waMa=0,adVF=0x100</txt-record>
+          </service>
+        </service-group>
+      '';
+    };
   };
 
   sops.secrets."users/nigel/samba-password" = {};

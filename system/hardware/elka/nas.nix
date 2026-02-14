@@ -1,5 +1,9 @@
 { pkgs, config, ... }:
 {
+  services.k3s.nodeLabel = [
+    "nas=true"
+  ];
+
   sops.secrets."homelab/disk-key" = {
     owner = "nigel";
   };

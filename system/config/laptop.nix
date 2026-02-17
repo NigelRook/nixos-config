@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   nix.gc.dates = "Sat *-*-* 22:00:00";
 
@@ -25,5 +25,10 @@
         Experimental = true; # Show battery charge of Bluetooth devices
       };
     };
+  };
+
+  networking.networkmanager.wifi = {
+    backend = lib.mkDefault "iwd";
+    powersave = lib.mkDefault true;
   };
 }

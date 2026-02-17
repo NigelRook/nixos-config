@@ -20,7 +20,7 @@
 
   fileSystems."/srv/data" = {
     fsType = "mergerfs";
-    device = "/srv/hdd_1_ironwolf_18T/data:/srv/hdd_4_wdred_4T/data";
+    device = "/srv/hdd_1_ironwolf_18T/data:/srv/hdd_4_wdred_4T/data:/srv/hdd_3_exos_16T/data";
     options = [
       "fsname=data"
       "category.create=msppfrd"
@@ -149,5 +149,11 @@
     ruth_smbpasswd.text = ''
       /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa ruth
     '';
+  };
+
+  fileSystems."/srv/hdd_3_exos_16T" = {
+    device = "/dev/disk/by-uuid/dbe78ebf-d0d0-4fc6-9de8-63091d4e1d98";
+    fsType = "btrfs";
+    options = [ "noatime" "nodiratime" ];
   };
 }

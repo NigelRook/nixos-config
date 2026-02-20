@@ -15,12 +15,13 @@
 
   environment.etc.crypttab.text = ''
     hdd-1-ironwolf-18T PARTLABEL=disk-hdd-1-ironwolf-18T-luks /run/secrets/homelab/disk-key nofail
+    hdd-2-ironwolf-18T PARTLABEL=disk-hdd-2-ironwolf-18T-luks /run/secrets/homelab/disk-key nofail
     hdd-4-wdred-4T PARTLABEL=disk-hdd-4-wdred-4T-luks /run/secrets/homelab/disk-key nofail
   '';
 
   fileSystems."/srv/data" = {
     fsType = "mergerfs";
-    device = "/srv/hdd_1_ironwolf_18T/data:/srv/hdd_4_wdred_4T/data:/srv/hdd_3_exos_16T/data";
+    device = "/srv/hdd_1_ironwolf_18T/data:/srv/hdd_2_ironwolf_18T/data:/srv/hdd_4_wdred_4T/data:/srv/hdd_3_exos_16T/data";
     options = [
       "fsname=data"
       "category.create=msppfrd"

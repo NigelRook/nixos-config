@@ -63,6 +63,30 @@
           };
         };
       };
+      hdd-2-ironwolf-18T = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-ST18000NE000-3G6101_ZVTEFDQR";
+        content = {
+          type = "gpt";
+          partitions = {
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "hdd-2-ironwolf-18T";
+                passwordFile = "/run/secrets/homelab/disk-key";
+                initrdUnlock = false;
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/srv/hdd_2_ironwolf_18T";
+                  mountOptions = [ "noatime" "nodiratime" "nofail" ];
+                };
+              };
+            };
+          };
+        };
+      };
       hdd-4-wdred-4T = {
         type = "disk";
         device = "/dev/disk/by-id/ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5CLE540";

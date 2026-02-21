@@ -8,6 +8,7 @@
     deploy-rs
     kubectl
     kubectx
+    kubernetes-helm
     k9s
   ];
   virtualisation.libvirtd = {

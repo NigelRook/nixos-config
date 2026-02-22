@@ -16,6 +16,7 @@
   environment.etc.crypttab.text = ''
     hdd-1-ironwolf-18T PARTLABEL=disk-hdd-1-ironwolf-18T-luks /run/secrets/homelab/disk-key nofail
     hdd-2-ironwolf-18T PARTLABEL=disk-hdd-2-ironwolf-18T-luks /run/secrets/homelab/disk-key nofail
+    hdd-3-exos-16T PARTLABEL=disk-hdd-3-exos-16T-luks /run/secrets/homelab/disk-key nofail
     hdd-4-wdred-4T PARTLABEL=disk-hdd-4-wdred-4T-luks /run/secrets/homelab/disk-key nofail
   '';
 
@@ -150,11 +151,5 @@
     ruth_smbpasswd.text = ''
       /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa ruth
     '';
-  };
-
-  fileSystems."/srv/hdd_3_exos_16T" = {
-    device = "/dev/disk/by-uuid/dbe78ebf-d0d0-4fc6-9de8-63091d4e1d98";
-    fsType = "btrfs";
-    options = [ "noatime" "nodiratime" ];
   };
 }

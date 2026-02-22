@@ -87,6 +87,30 @@
           };
         };
       };
+      hdd-3-exos-16T = {
+        type = "disk";
+        device = "/dev/disk/by-id/ata-ST16000NM001G-2KK103_ZL2NPE69";
+        content = {
+          type = "gpt";
+          partitions = {
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "hdd-3-exos-16T";
+                passwordFile = "/run/secrets/homelab/disk-key";
+                initrdUnlock = false;
+                content = {
+                  type = "filesystem";
+                  format = "ext4";
+                  mountpoint = "/srv/hdd_3_exos_16T";
+                  mountOptions = [ "noatime" "nodiratime" "nofail" ];
+                };
+              };
+            };
+          };
+        };
+      };
       hdd-4-wdred-4T = {
         type = "disk";
         device = "/dev/disk/by-id/ata-WDC_WD40EFRX-68WT0N0_WD-WCC4E5CLE540";

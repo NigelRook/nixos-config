@@ -106,12 +106,15 @@
       authelia-oidc.source = config.sops.secrets.authelia-oidc.path;
     };
 
+    # Enable for bootstrapping. Can be disabled after argocd starts
+    # self-managing its own helm chart
     autoDeployCharts = {
       argocd = {
+        enable = false;
         name = "argo-cd";
         repo = "https://argoproj.github.io/argo-helm";
-        version = "9.1.3";
-        hash = "sha256-OG74wEZuXyqT5S98lhj/E+t+KScJZycVWeLORPs8J7I=";
+        version = "9.1.10";
+        hash = "";
         targetNamespace = "argocd";
         values = {
           configs = {

@@ -3,7 +3,7 @@
 
   inputs = {
     # NixOS official package source, using the nixos-unstable branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/a479ce742b98a137403ae58184f6f947aa8e6fa0";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell?rev=26531fc46ef17e9365b03770edd3fb9206fcb460";
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell?rev=41828c4180fb921df7992a5405f5ff05d2ac2fff";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

@@ -40,7 +40,7 @@
 
   environment.systemPackages = with pkgs; [
     xwayland-satellite
-    mate.mate-polkit
+    mate-polkit
     wluma
     adw-gtk3
     adwaita-icon-theme

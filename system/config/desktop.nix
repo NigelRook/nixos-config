@@ -1,5 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 

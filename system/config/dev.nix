@@ -10,6 +10,7 @@
     kubectx
     kubernetes-helm
     k9s
+    argocd
   ];
   virtualisation.libvirtd = {
     enable = true;

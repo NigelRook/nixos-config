@@ -4,10 +4,10 @@ Configuration files for setting up NixOS
 
 ## Partitioning
 
-Each system has a `disk-config.nix` under `system/hardware/<host>/` containing a disko configuration. For a new system, createTo apply this, run:
+Each system has a `disk-config.nix` under `hardware/<host>/` containing a disko configuration. For a new system, createTo apply this, run:
 
 ```
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko system/hardware/<host>/disk-config.nix
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko hardware/<host>/disk-config.nix
 ```
 
 ## Installing
@@ -18,17 +18,17 @@ For remote installs, changes can be made to this repo on the local machine
 
 ### disko config
 
-If the machine doesn't have one, craft a suitable disko config at `system/hardware/MACHINE_NAME/disk-config.nix`
+If the machine doesn't have one, craft a suitable disko config at `hardware/MACHINE_NAME/disk-config.nix`
 
 ### Partitioning (live ISO only)
 
 ```
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko system/hardware/MACHINE_NAME/disk-config.nix
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko hardware/MACHINE_NAME/disk-config.nix
 ```
 
 ### Base config
 
-If you don't already have a configuration for the system, create `system/hardware/MACHINE_NAME/default.nix`
+If you don't already have a configuration for the system, create `hardware/MACHINE_NAME/default.nix`
 
 ```
 {
@@ -45,12 +45,12 @@ Add any additional machine-specific config in here
 ### hardware-configuration.nix (live ISO only)
 
 ```
-sudo nixos-generate-config --show-hardware-config --no-filesystems --root /mnt > system/hardware/<host>/hardware-configuration.nix
+sudo nixos-generate-config --show-hardware-config --no-filesystems --root /mnt > hardware/<host>/hardware-configuration.nix
 ```
 
 ### Flake entry
 
-If one doesn't already exist, add an entry to [flake.nix](system/flake.nix)
+If one doesn't already exist, add an entry to [flake.nix](flake.nix)
 
 ```
   outputs = {  ... }@inputs: {
@@ -65,9 +65,9 @@ If one doesn't already exist, add an entry to [flake.nix](system/flake.nix)
   };
 ```
 
-### deplyy-rs profile (remote only)
+### deploy-rs profile (remote only)
 
-If one doesn't already exist, add an entry to [flake.nix](system/flake.nix)
+If one doesn't already exist, add an entry to [flake.nix](flake.nix)
 
 ```
   deploy = ...
@@ -110,7 +110,7 @@ For live ISO, you'll need to at least `git add` new files (required by flakes). 
 ### Install (live ISO)
 
 ```
-sudo nixos-install --flake ./system#<host>
+sudo nixos-install --flake .#<host>
 ```
 
 ### Install (remote)
@@ -125,8 +125,8 @@ Then run
 targethost=MACHINE_NAME
 targetip=TARGET_IP
 nix run github:nix-community/nixos-anywhere -- \
-  --flake ./system#${targethost} \
-  --generate-hardware-config nixos-generate-config ./system/hardware/${targethost}/hardware-configuration.nix \
+  --flake .#${targethost} \
+  --generate-hardware-config nixos-generate-config hardware/${targethost}/hardware-configuration.nix \
   --disk-encryption-keys /run/secrets/homelab/disk-key /run/secrets/homelab/disk-key \
   --extra-files ${temp} \
   --env-password \
@@ -149,10 +149,9 @@ From the running system, get the age public key with
 nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'
 ```
 
-Add this to [.sops.yaml](system/.sops.yaml), then update the secrets file with
+Add this to [.sops.yaml](.sops.yaml), then update the secrets file with
 
 ```
-cd system
 sops updatekeys secrets/secrets.yaml
 ```
 
@@ -197,7 +196,7 @@ Enable setup mode from bios (possibly just by deleting all keys), then enroll th
 nix run nixpgks#sbctl enroll-keys --microsoft
 ```
 
-Then you can add the [system/hardware/common/secure-boot.nix](system/hardware/common/secure-boot.nix) module to your system configuration to enable secure boot
+Then you can add the [hardware/common/secure-boot.nix](hardware/common/secure-boot.nix) module to your system configuration to enable secure boot
 
 ### Enabling tpm2 auto-unlock of LUKS partition
 

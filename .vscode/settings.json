@@ -11,11 +11,8 @@
                 // You can write arbitary Nix expressions here, to produce valid "options" declaration result.
                 // Tip: for flake-based configuration, utilize `builtins.getFlake`
                 "nixos": {
-                    "expr": "(builtins.getFlake \"${workspaceFolder}/system\").nixosConfigurations.helmut.options"
+                    "expr": "(builtins.getFlake \"${workspaceFolder}\").nixosConfigurations.boyd.options"
                 },
-                "home-manager": {
-                    "expr": "(builtins.getFlake \"${workspaceFolder}/home\").homeConfigurations.nigel.options"
-                }
             }
         }
 },

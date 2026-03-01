@@ -14,6 +14,8 @@
     configHome = "/home/nigel"; # optionally copyies that users DMS settings (and wallpaper if set) to the greeters data directory as root before greeter starts
   };
 
+  security.pam.services.greetd.fprintAuth = false;
+
   services.upower.enable = true;
   services.gvfs.enable = true;
 

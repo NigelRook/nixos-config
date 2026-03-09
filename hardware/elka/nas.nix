@@ -84,6 +84,7 @@
         "valid users" = "nigel ruth";
         "public" = "no";
         "writeable" = "yes";
+        "write list" = "nigel ruth";
         "fruit:aapl" = "yes";
         "fruit:time machine" = "yes";
         "vfs objects" = "catia fruit streams_xattr";

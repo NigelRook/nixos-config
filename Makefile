@@ -16,7 +16,7 @@ switch:
 
 .PHONY: check-update
 check-update:
-	nix flake update .
+	nix flake update
 	nixos-rebuild build --flake .#
 	nix store diff-closures /run/current-system ./result
 	rm result

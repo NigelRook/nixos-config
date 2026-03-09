@@ -13,9 +13,9 @@
     '';
   };
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=4h
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "4h";
+  };
 
   hardware.bluetooth = {
     enable = true;

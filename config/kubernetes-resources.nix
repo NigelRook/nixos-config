@@ -44,6 +44,11 @@
     key = "";
   };
 
+  sops.secrets.linkwarden = {
+    sopsFile = ../secrets/k8s/linkwarden-secrets.yaml;
+    key = "";
+  };
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -104,6 +109,15 @@
       };
       authelia-secrets.source = config.sops.secrets.authelia-secrets.path;
       authelia-oidc.source = config.sops.secrets.authelia-oidc.path;
+
+      linkwarden-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "linkwarden";
+        };
+      };
+      linkwarden-secrets.source = config.sops.secrets.linkwarden.path;
     };
 
     # Enable for bootstrapping. Can be disabled after argocd starts

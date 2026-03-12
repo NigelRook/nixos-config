@@ -83,10 +83,11 @@
       };
       "timemachine" = {
         "path" = "/export/timemachine";
-        "valid users" = "nigel ruth";
+        "valid users" = "@users";
         "public" = "no";
         "writeable" = "yes";
-        "write list" = "nigel ruth";
+        "create mask" = "0664";
+        "directory mask" = "0775";
         "fruit:aapl" = "yes";
         "fruit:time machine" = "yes";
         "vfs objects" = "catia fruit streams_xattr";

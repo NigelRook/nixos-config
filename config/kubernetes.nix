@@ -13,6 +13,10 @@
           shutdownGracePeriodSeconds = 30;
         }
         {
+          priority = 100000000;
+          shutdownGracePeriodSeconds = 30;
+        }
+        {
           priority = 10000000;
           shutdownGracePeriodSeconds = 15;
         }

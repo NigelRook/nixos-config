@@ -49,6 +49,11 @@
     key = "";
   };
 
+  sops.secrets.freshrss = {
+    sopsFile = ../secrets/k8s/freshrss-secrets.yaml;
+    key = "";
+  };
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -118,6 +123,15 @@
         };
       };
       linkwarden-secrets.source = config.sops.secrets.linkwarden.path;
+
+      freshrss-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "freshrss";
+        };
+      };
+      freshrss-secrets.source = config.sops.secrets.freshrss.path;
     };
 
     # Enable for bootstrapping. Can be disabled after argocd starts

@@ -54,6 +54,11 @@
     key = "";
   };
 
+  sops.secrets.immich = {
+    sopsFile = ../secrets/k8s/immich-secrets.yaml;
+    key = "";
+  };
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -132,6 +137,15 @@
         };
       };
       freshrss-secrets.source = config.sops.secrets.freshrss.path;
+
+      immich-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "immich";
+        };
+      };
+      immich-secrets.source = config.sops.secrets.immich.path;
     };
 
     # Enable for bootstrapping. Can be disabled after argocd starts

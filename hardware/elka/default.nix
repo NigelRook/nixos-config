@@ -5,7 +5,7 @@
     ../common/secure-boot.nix
     ./alder-lake-n.nix
     ../../config/kubernetes-resources.nix
-    ./nas.nix
+    ./nas
   ];
 
   boot.loader.systemd-boot = {

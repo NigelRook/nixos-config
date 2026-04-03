@@ -1,14 +1,9 @@
 { pkgs, inputs, ... }:
-let
-  system = "x86_64-linux";
-  pinned = import inputs.nixpkgs-old { inherit system; };
-in
 {
   programs.dms-shell = {
     enable = true;
-    package = pinned.dms-shell;
+    package = inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.default;
     systemd.enable = true;
-    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   services.displayManager.dms-greeter = {

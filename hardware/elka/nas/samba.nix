@@ -1,4 +1,11 @@
 { pkgs, config, ... }:
+let
+  smbPasswordScript = user: passwordPath: {
+    text = ''
+      ${pkgs.coreutils}/bin/printf "$(${pkgs.coreutils}/bin/cat ${passwordPath})\n$(${pkgs.coreutils}/bin/cat ${passwordPath})\n" | ${pkgs.samba}/bin/smbpasswd -sa "${user}"
+    '';
+  };
+in
 {
   services.samba = {
     enable = true;
@@ -13,7 +20,7 @@
         "netbios name" = config.networking.hostName;
         "security" = "user";
         # note: localhost is the ipv6 localhost ::1
-        "hosts allow" = "192.168.2. 127.0.0.1 localhost";
+        "hosts allow" = "192.168.2. 10.42. 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
@@ -39,6 +46,16 @@
         "fruit:aapl" = "yes";
         "fruit:time machine" = "yes";
         "vfs objects" = "catia fruit streams_xattr";
+      };
+      "longhorn-backups" = {
+        "path" = "/export/longhorn-backups";
+        "valid users" = "longhorn";
+        "public" = "no";
+        "browseable" = "no";
+        "guest ok" = "no";
+        "writeable" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
       };
     };
   };
@@ -82,12 +99,7 @@
   };
 
   sops.secrets."users/nigel/samba-password" = {};
-
-  system.activationScripts = {
-    nigel_smbpasswd.text = ''
-      /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/nigel/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/nigel/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa nigel
-    '';
-  };
+  system.activationScripts.nigel_smbpasswd = smbPasswordScript "nigel" config.sops.secrets."users/nigel/samba-password".path;
 
   users.users.ruth = {
     isNormalUser = true;
@@ -96,12 +108,16 @@
     shell = pkgs.shadow + "/bin/nologin";
     createHome = false;
   };
-
   sops.secrets."users/ruth/samba-password" = {};
+  system.activationScripts.ruth_smbpasswd = smbPasswordScript "ruth" config.sops.secrets."users/ruth/samba-password".path;
 
-  system.activationScripts = {
-    ruth_smbpasswd.text = ''
-      /run/current-system/sw/bin/printf "$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n$(/run/current-system/sw/bin/cat ${config.sops.secrets."users/ruth/samba-password".path})\n" | /run/current-system/sw/bin/smbpasswd -sa ruth
-    '';
+  users.users.longhorn = {
+    isNormalUser = true;
+    description = "Longhorn";
+    uid = 2000;
+    shell = pkgs.shadow + "/bin/nologin";
+    createHome = false;
   };
+  sops.secrets."homelab/longhorn-samba-password" = {};
+  system.activationScripts.longhorn_smbpasswd = smbPasswordScript "longhorn" config.sops.secrets."homelab/longhorn-samba-password".path;
 }

@@ -37,4 +37,9 @@
     device = "/srv/data/timemachine";
     options = [ "bind" "nofail" ];
   };
+
+  fileSystems."/export/longhorn-backups" = {
+    device = "/srv/data/backups/longhorn";
+    options = [ "bind" "nofail" ];
+  };
 }

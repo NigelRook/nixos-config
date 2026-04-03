@@ -44,6 +44,11 @@
     key = "";
   };
 
+  sops.secrets.longhorn = {
+    sopsFile = ../secrets/k8s/longhorn-secrets.yaml;
+    key = "";
+  };
+
   sops.secrets.linkwarden = {
     sopsFile = ../secrets/k8s/linkwarden-secrets.yaml;
     key = "";
@@ -119,6 +124,15 @@
       };
       authelia-secrets.source = config.sops.secrets.authelia-secrets.path;
       authelia-oidc.source = config.sops.secrets.authelia-oidc.path;
+
+      longhorn-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "longhorn-system";
+        };
+      };
+      longhorn-secrets.source = config.sops.secrets.longhorn.path;
 
       linkwarden-namespace.content = {
         apiVersion = "v1";

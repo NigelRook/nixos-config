@@ -48,5 +48,6 @@ in
     timemachine-dir = systemdManagedDir "/srv/data/timemachine" "srv-data.mount" "root" "users" "0775";
     backups-dir = systemdManagedDir "/srv/data/backups" "srv-data.mount" "root" "users" "0775";
     longhorn-backups-dir = systemdManagedDir "/srv/data/backups/longhorn" "srv-data.mount" "longhorn" "users" "0700";
+    objstore-dir = systemdManagedDir "/srv/data/objstore" "srv-data.mount" "root" "users" "0700";
   };
 }

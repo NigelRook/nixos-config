@@ -47,16 +47,6 @@ in
         "fruit:time machine" = "yes";
         "vfs objects" = "catia fruit streams_xattr";
       };
-      "longhorn-backups" = {
-        "path" = "/export/longhorn-backups";
-        "valid users" = "longhorn";
-        "public" = "no";
-        "browseable" = "no";
-        "guest ok" = "no";
-        "writeable" = "yes";
-        "create mask" = "0644";
-        "directory mask" = "0755";
-      };
     };
   };
 
@@ -110,14 +100,4 @@ in
   };
   sops.secrets."users/ruth/samba-password" = {};
   system.activationScripts.ruth_smbpasswd = smbPasswordScript "ruth" config.sops.secrets."users/ruth/samba-password".path;
-
-  users.users.longhorn = {
-    isNormalUser = true;
-    description = "Longhorn";
-    uid = 2000;
-    shell = pkgs.shadow + "/bin/nologin";
-    createHome = false;
-  };
-  sops.secrets."homelab/longhorn-samba-password" = {};
-  system.activationScripts.longhorn_smbpasswd = smbPasswordScript "longhorn" config.sops.secrets."homelab/longhorn-samba-password".path;
 }

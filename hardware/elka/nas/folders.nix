@@ -48,5 +48,19 @@ in
     timemachine-dir = systemdManagedDir "/srv/data/timemachine" "srv-data.mount" "root" "users" "0775";
     backups-dir = systemdManagedDir "/srv/data/backups" "srv-data.mount" "root" "users" "0775";
     objstore-dir = systemdManagedDir "/srv/data/objstore" "srv-data.mount" "root" "users" "0700";
+
+    photos-dir = systemdManagedDir "/srv/data/media/photos" "srv-data.mount" "nigel" "users" "0775";
+  };
+
+  systemd.services.dup-photos = {
+    script = ''
+      set -eu
+      ${pkgs.mergerfs-tools}/bin/mergerfs.dup -e /srv/data/media/photos/
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+    };
+    startAt = "03:02";
   };
 }

@@ -49,6 +49,11 @@
     key = "";
   };
 
+  sops.secrets.renovate = {
+    sopsFile = ../secrets/k8s/renovate-secrets.yaml;
+    key = "";
+  };
+
   sops.secrets.linkwarden = {
     sopsFile = ../secrets/k8s/linkwarden-secrets.yaml;
     key = "";
@@ -133,6 +138,15 @@
         };
       };
       longhorn-secrets.source = config.sops.secrets.longhorn.path;
+
+      renovate-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "renovate";
+        };
+      };
+      renovate-secrets.source = config.sops.secrets.renovate.path;
 
       linkwarden-namespace.content = {
         apiVersion = "v1";

@@ -29,11 +29,13 @@
   };
 
   fileSystems."/export/media" = {
+    fsType = "none";
     device = "/srv/data/media";
     options = [ "bind" "nofail" ];
   };
 
   fileSystems."/export/timemachine" = {
+    fsType = "none";
     device = "/srv/data/timemachine";
     options = [ "bind" "nofail" ];
   };

@@ -9,9 +9,7 @@ in
 {
   services.samba = {
     enable = true;
-    package = pkgs.samba4.override {
-      enableMDNS = true;
-    };
+    package = pkgs.samba4Full;
     openFirewall = true;
     settings = {
       global = {

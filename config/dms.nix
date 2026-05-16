@@ -24,19 +24,6 @@
   security.pam.services.swaylock = {};
   services.gnome.gnome-keyring.enable = true; # secret service
 
-  systemd.user.services.wluma = {
-    enable = false;
-
-    partOf = ["graphical-session.target"];
-    after = ["graphical-session.target"];
-    wantedBy = ["graphical-session.target"];
-
-    serviceConfig = {
-      ExecStart = "${pkgs.wluma}/bin/wluma";
-      Restart = "on-failure";
-    };
-  };
-
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
   ];
@@ -52,12 +39,4 @@
     ptyxis
     blanket
   ];
-
-  # wluma udev
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness"
-    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
-    ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/leds/%k/brightness"
-    ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
-  '';
 }

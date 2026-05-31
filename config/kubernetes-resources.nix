@@ -69,6 +69,11 @@
     key = "";
   };
 
+  sops.secrets.nextcloud = {
+    sopsFile = ../secrets/k8s/nextcloud-secrets.yaml;
+    key = "";
+  };
+
   services.k3s = {
     manifests = {
       cert-manager-namespace.content = {
@@ -174,6 +179,15 @@
         };
       };
       immich-secrets.source = config.sops.secrets.immich.path;
+
+      nextcloud-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "nextcloud";
+        };
+      };
+      nextcloud-secrets.source = config.sops.secrets.nextcloud.path;
     };
 
     # Enable for bootstrapping. Can be disabled after argocd starts

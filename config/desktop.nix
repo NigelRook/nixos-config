@@ -66,4 +66,9 @@
     bitwarden-desktop
     discord
   ];
+
+  home-manager.users.nigel.services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 }

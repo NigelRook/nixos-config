@@ -9,6 +9,7 @@
     kubectl
     kubectx
     kubernetes-helm
+    pv-migrate
     k9s
     argocd
   ];

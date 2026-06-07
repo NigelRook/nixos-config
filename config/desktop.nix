@@ -63,7 +63,6 @@
       ];
     })
     ungoogled-chromium
-    bitwarden-desktop
     discord
   ];
 

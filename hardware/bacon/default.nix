@@ -3,7 +3,6 @@
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
-    ../common/bootstrap-sops.nix
     ./raspberrypi5.nix
   ];
 

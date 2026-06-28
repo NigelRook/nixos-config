@@ -2,6 +2,7 @@ keys:
   - &admin_nigel age1fxm6mx7zu5ygvxcqxq7aru4teht4eck7v5gln922jfyn7wx29gaszzp654
   - &machine_boyd age1cq5u8tu7cmxvupg0nhz6d4vsfalnfw8hsasd2ynxu9j2yrzdsufsmwleet
   - &machine_elka age1s3kxpfxfwv92ldvxwlfz28gahancmj3v3d70g20ky372euaqzd8s0ne3hc
+  - &machine_bacon age1c63x3zfj50d8zcdve7mtcxwx0kxzqzqx56hkcdg620jm6ytrpajsp2ug2w
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
@@ -9,6 +10,7 @@ creation_rules:
       - *admin_nigel
       - *machine_elka
       - *machine_boyd
+      - *machine_bacon
   - path_regex: secrets/k8s/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:

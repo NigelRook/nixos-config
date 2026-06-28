@@ -14,4 +14,9 @@
 
   # temp disable k3s
   services.k3s.enable = lib.mkForce false;
+
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 8*1024;
+  }];
 }

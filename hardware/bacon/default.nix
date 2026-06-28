@@ -4,6 +4,7 @@
     ./disk-config.nix
     ./hardware-configuration.nix
     ./raspberrypi5.nix
+    ./remote-luks-unlock.nix
   ];
 
   boot.loader.systemd-boot = {

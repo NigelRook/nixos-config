@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     sops
+    git-agecrypt
     vscode
     nixd
     nix-diff

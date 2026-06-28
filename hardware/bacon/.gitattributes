@@ -1,0 +1,1 @@
+.ssh-unlock-hostkey filter=git-agecrypt diff=git-agecrypt

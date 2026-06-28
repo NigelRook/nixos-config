@@ -35,31 +35,39 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-raspberrypi, deploy-rs, nixos-hardware, lanzaboote, disko, ... }@inputs: {
-    # Please replace my-nixos with your hostname
-    nixosConfigurations = let
-      systemDef = hostName: attrs: nixpkgs.lib.nixosSystem {
-        system = attrs.system;
-        specialArgs = { inherit nixos-raspberrypi lanzaboote nixos-hardware disko inputs; };
-        modules =
-        [
-          { networking.hostName = hostName; }
-          disko.nixosModules.disko
-          inputs.sops-nix.nixosModules.sops
-          inputs.home-manager.nixosModules.default
-          ./hardware/${hostName}
-          ./config/base.nix
-        ] ++ attrs.modules;
+  outputs = { self, nixpkgs, nixos-raspberrypi, deploy-rs, nixos-hardware, lanzaboote, disko, ... }@inputs:
+  let
+    hardware = {
+      boyd = {
+        system = "x86_64-linux";
+        modules = [ ./archetypes/personal-laptop.nix ];
       };
-    in
-    builtins.mapAttrs systemDef {
-      boyd = { system = "x86_64-linux"; modules = [ ./archetypes/personal-laptop.nix ]; };
-      elka = { system = "x86_64-linux"; modules = [ ./archetypes/server.nix ]; };
-      bacon = { system = "aarch64-linux"; modules = [ ./archetypes/server.nix ]; };
+      elka = {
+        system = "x86_64-linux";
+        modules = [ ./archetypes/server.nix ];
+      };
+      bacon = {
+        system = "aarch64-linux";
+        modules = [ ./archetypes/server.nix ];
+      };
     };
 
-    deploy = let
-      system = "x86_64-linux";
+    systemDef = hostName: attrs: nixpkgs.lib.nixosSystem {
+      system = attrs.system;
+      specialArgs = { inherit nixos-raspberrypi lanzaboote nixos-hardware disko inputs; };
+      modules =
+      [
+        { networking.hostName = hostName; }
+        disko.nixosModules.disko
+        inputs.sops-nix.nixosModules.sops
+        inputs.home-manager.nixosModules.default
+        ./hardware/${hostName}
+        ./config/base.nix
+      ] ++ attrs.modules;
+    };
+
+    deployNode = hostName: attrs: let
+      system = attrs.system;
       # Unmodified nixpkgs
       pkgs = import nixpkgs { inherit system; };
       # nixpkgs with deploy-rs overlay but force the nixpkgs package
@@ -70,19 +78,20 @@
           (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
         ];
       };
-    in {
-      nodes.elka = {
-        hostname = "elka";
-        profiles.system = {
-          sshUser = "nigel";
-          user = "root";
-          path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.elka;
-        };
+    in
+    {
+      hostname = hostName;
+      profiles.system = {
+        sshUser = "nigel";
+        user = "root";
+        remoteBuild = true;
+        path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.${hostName};
       };
     };
-
-    # This is highly advised, and will prevent many possible mistakes
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+  in
+  {
+    nixosConfigurations = builtins.mapAttrs systemDef hardware;
+    deploy.nodes = builtins.mapAttrs deployNode hardware;
   };
 
   nixConfig = {

@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/nixos-26.05";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,12 +35,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, deploy-rs, nixos-hardware, lanzaboote, disko, ... }@inputs: {
+  outputs = { self, nixpkgs, nixos-raspberrypi, deploy-rs, nixos-hardware, lanzaboote, disko, ... }@inputs: {
     # Please replace my-nixos with your hostname
     nixosConfigurations = let
-      systemDef = hostName: hostModules: nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit lanzaboote nixos-hardware disko inputs; };
+      systemDef = hostName: attrs: nixpkgs.lib.nixosSystem {
+        system = attrs.system;
+        specialArgs = { inherit nixos-raspberrypi lanzaboote nixos-hardware disko inputs; };
         modules =
         [
           { networking.hostName = hostName; }
@@ -45,12 +49,13 @@
           inputs.home-manager.nixosModules.default
           ./hardware/${hostName}
           ./config/base.nix
-        ] ++ hostModules;
+        ] ++ attrs.modules;
       };
     in
     builtins.mapAttrs systemDef {
-      boyd = [ ./archetypes/personal-laptop.nix ];
-      elka = [ ./archetypes/server.nix ];
+      boyd = { system = "x86_64-linux"; modules = [ ./archetypes/personal-laptop.nix ]; };
+      elka = { system = "x86_64-linux"; modules = [ ./archetypes/server.nix ]; };
+      bacon = { system = "aarch64-linux"; modules = [ ./archetypes/server.nix ]; };
     };
 
     deploy = let
@@ -78,5 +83,14 @@
 
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nixos-raspberrypi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
+    ];
   };
 }

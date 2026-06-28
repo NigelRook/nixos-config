@@ -99,7 +99,11 @@ temp=$(mktemp -d)
 mkdir -p $temp/tmp/sops/
 ```
 
-Create `$temp/tmp/sops/key.txt` containing the required key
+Create `$temp/tmp/sops/key.txt` containing the required key, eg.
+
+```
+cp /run/secrets/users/nigel/admin-key $temp/tmp/sops/key.txt
+```
 
 ### Store repo changes
 
@@ -127,10 +131,15 @@ targetip=TARGET_IP
 nix run github:nix-community/nixos-anywhere -- \
   --flake .#${targethost} \
   --generate-hardware-config nixos-generate-config hardware/${targethost}/hardware-configuration.nix \
-  --disk-encryption-keys /run/secrets/homelab/disk-key /run/secrets/homelab/disk-key \
   --extra-files ${temp} \
   --env-password \
   --target-host root@${targetip}
+```
+
+You might also need
+
+```
+  --disk-encryption-keys /run/secrets/homelab/disk-key /run/secrets/homelab/disk-key \
 ```
 
 ## After install

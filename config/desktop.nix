@@ -70,4 +70,23 @@
     enable = true;
     startInBackground = true;
   };
+
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            leftmeta = "layer(meta)";
+          };
+          meta = {
+            x = "S-delete";
+            c = "C-insert";
+            v = "S-insert";
+          };
+        };
+      };
+    };
+  };
 }

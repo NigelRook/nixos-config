@@ -50,6 +50,10 @@
         system = "aarch64-linux";
         modules = [ ./archetypes/server.nix ];
       };
+      ford = {
+        system = "x86_64-linux";
+        modules = [ ./archetypes/server.nix ];
+      };
     };
 
     systemDef = hostName: attrs: nixpkgs.lib.nixosSystem {

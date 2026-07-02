@@ -22,7 +22,11 @@
     options = "--delete-older-than 30d";
   };
 
-  nix.settings.auto-optimise-store = true;
+  nix.settings = {
+    auto-optimise-store = true;
+    keep-outputs = true;
+    keep-derivations = true;
+  };
 
   # Sops
 

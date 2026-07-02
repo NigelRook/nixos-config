@@ -6,6 +6,10 @@
     ../common/secure-boot.nix
   ];
 
-  # temp disable k3s
-  services.k3s.enable = lib.mkForce false;
+  services.k3s = {
+    nodeTaint = [
+      "disable-workloads=true:NoSchedule"
+    ];
+    serverAddr = "https://elka:6443";
+  };
 }

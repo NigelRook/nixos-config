@@ -12,4 +12,6 @@
     consoleMode = "2";
     editor = false;
   };
+
+  services.k3s.clusterInit = true;
 }

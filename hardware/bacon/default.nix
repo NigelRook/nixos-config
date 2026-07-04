@@ -19,6 +19,10 @@
     serverAddr = "https://elka:6443";
   };
 
+  systemd.services.k3s.environment = {
+    GOMEMLIMIT = "768MiB";
+  };
+
   # pi kernel disables memory cgroups by default, enable them
   boot.kernelParams = [
     "cgroup_enable=memory"

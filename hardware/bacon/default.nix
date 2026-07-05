@@ -13,15 +13,13 @@
   };
 
   services.k3s = {
-    nodeTaint = [
-      "disable-workloads=true:NoSchedule"
-    ];
+    disableAgent = true;
     serverAddr = "https://elka:6443";
   };
 
-  systemd.services.k3s.environment = {
-    GOMEMLIMIT = "768MiB";
-  };
+  # Because k3s has disableAgent = true, it can't host node exporter
+  # So, manage that through k3s
+  services.prometheus.exporters.node.enable = true;
 
   # pi kernel disables memory cgroups by default, enable them
   boot.kernelParams = [

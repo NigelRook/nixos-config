@@ -9,6 +9,7 @@
     deploy-rs
     kubectl
     kubectx
+    kubectl-cnpg
     kubernetes-helm
     pv-migrate
     k9s

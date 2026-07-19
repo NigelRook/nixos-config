@@ -69,6 +69,11 @@
     key = "";
   };
 
+  sops.secrets.immich-backup = {
+    sopsFile = ../secrets/k8s/immich-backup-secrets.yaml;
+    key = "";
+  };
+
   sops.secrets.nextcloud = {
     sopsFile = ../secrets/k8s/nextcloud-secrets.yaml;
     key = "";
@@ -179,6 +184,7 @@
         };
       };
       immich-secrets.source = config.sops.secrets.immich.path;
+      immich-backup-secrets.source = config.sops.secrets.immich-backup.path;
 
       nextcloud-namespace.content = {
         apiVersion = "v1";

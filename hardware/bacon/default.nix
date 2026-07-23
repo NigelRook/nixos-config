@@ -20,7 +20,7 @@
   };
 
   systemd.services.k3s.environment = {
-    GOMEMLIMIT = "900MiB";
+    GOGC = "50";
   };
 
   # pi kernel disables memory cgroups by default, enable them

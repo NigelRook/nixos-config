@@ -54,6 +54,11 @@
     key = "";
   };
 
+  sops.secrets.versitygw-backup = {
+    sopsFile = ../secrets/k8s/versitygw-backup-secrets.yaml;
+    key = "";
+  };
+
   sops.secrets.linkwarden = {
     sopsFile = ../secrets/k8s/linkwarden-secrets.yaml;
     key = "";
@@ -157,6 +162,15 @@
         };
       };
       renovate-secrets.source = config.sops.secrets.renovate.path;
+
+      versitygw-namespace.content = {
+        apiVersion = "v1";
+        kind = "Namespace";
+        metadata = {
+          name = "versitygw";
+        };
+      };
+      versitygw-secrets.source = config.sops.secrets.versitygw-backup.path;
 
       linkwarden-namespace.content = {
         apiVersion = "v1";

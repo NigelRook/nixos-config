@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   environment.systemPackages = with pkgs; [
     sops
@@ -34,5 +34,11 @@
 
   home-manager.users.nigel.home = {
     sessionVariables.SOPS_AGE_KEY_FILE = config.sops.secrets."users/nigel/admin-key".path;
+  };
+
+  nix = {
+    nixPath = [ "nixpkgs=flake:nixpkgs" "nixos-config=/home/nigel/nixos-config" ];
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    channel.enable = false;
   };
 }

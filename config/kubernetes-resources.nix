@@ -22,6 +22,11 @@
     key = "";
   };
 
+  sops.secrets.traefik-secrets = {
+    sopsFile = ../secrets/k8s/traefik-secrets.yaml;
+    key = "";
+  };
+
   sops.secrets."homelab/smtp-password" = {};
   sops.templates."alert-manager-creds.yaml".content = ''
     apiVersion: v1
@@ -125,6 +130,8 @@
           };
         };
       };
+
+      traefik-secrets.source = config.sops.secrets.traefik-secrets.path;
 
       monitoring-namespace.content = {
         apiVersion = "v1";

@@ -10,7 +10,7 @@ build:
 boot:
 	sudo nixos-rebuild boot --flake .#
 
-.PHONY: boot
+.PHONY: switch
 switch:
 	sudo nixos-rebuild switch --flake .#
 

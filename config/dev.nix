@@ -28,6 +28,13 @@
     extraGroups = [ "libvirtd" ];
   };
 
+  virtualisation.podman = {
+    enable = true;
+    dockerSocket.enable = true;
+    autoPrune.enable = true;
+    dockerCompat = true;
+  };
+
   sops.secrets."users/nigel/admin-key" = {
     owner = "nigel";
   };

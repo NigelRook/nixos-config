@@ -27,6 +27,11 @@
     key = "";
   };
 
+  sops.secrets.crowdsec-secrets = {
+    sopsFile = ../secrets/k8s/crowdsec-secrets.yaml;
+    key = "";
+  };
+
   sops.secrets."homelab/smtp-password" = {};
   sops.templates."alert-manager-creds.yaml".content = ''
     apiVersion: v1
@@ -132,6 +137,7 @@
       };
 
       traefik-secrets.source = config.sops.secrets.traefik-secrets.path;
+      crowdsec-secrets.source = config.sops.secrets.crowdsec-secrets.path;
 
       monitoring-namespace.content = {
         apiVersion = "v1";

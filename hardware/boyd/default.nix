@@ -7,10 +7,6 @@
     nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
-  # Testing 16Gb system usability
-  boot.kernelParams = [
-    "mem=16G"
-  ];
   boot.zswap.enable = true;
 
   boot.plymouth.enable = true;

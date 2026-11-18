@@ -29,6 +29,12 @@
     framework-tool
   ];
 
+  # Disable wake from touchpad. Prevents spurious wakes with the lid closed, see
+  # https://www.reddit.com/r/framework/comments/1xz1qo8/fw_13_pro_linux_disable_the_touchpad_as_a_wake/
+  services.udev.extraRules = ''
+    ACTION=="add|bind", SUBSYSTEM=="i2c", KERNEL=="i2c-PIXA3854:00", TEST=="power/wakeup", ATTR{power/wakeup}="disabled"
+  '';
+
   # Kernel modules for additional hardware options
   # hardware.framework.enableKmod = false;
 
